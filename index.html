@@ -33,7 +33,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.6 var(--sans)
 .score,.certs .cd,.role .when,.guess output{font-variant-numeric:tabular-nums}
 a{color:var(--rust);text-underline-offset:3px}
 a:hover{color:var(--rust-2)}
-.wrap{max-width:1440px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
 @media (max-width:600px){.wrap{padding:0 16px}}
 .label{font:600 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--rust)}
 
@@ -46,13 +46,13 @@ nav a:hover{color:var(--rust)}
 @media (max-width:760px){nav a.hide-sm{display:none} nav a{margin-left:14px;font-size:15px}}
 @media (max-width:420px){.mark{font-size:18px} nav a.hide-xs{display:none}}
 
-.hero{padding:48px 0 40px}
-.intro{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:end;margin-bottom:28px}
+.hero{padding:40px 0 32px}
+.intro{display:grid;grid-template-columns:7fr 5fr;gap:40px;align-items:end;margin-bottom:22px}
 .intro .facts{margin-bottom:20px}
 @media (max-width:980px){.intro{grid-template-columns:1fr;gap:8px}}
 @media (max-width:900px){.hero{grid-template-columns:1fr;padding:40px 0 28px;gap:24px}}
-h1{font:700 clamp(44px,6.4vw,92px)/1 var(--serif);margin:12px 0 18px;letter-spacing:-.03em}
-.lede{font:400 22px/1.5 var(--sans);color:var(--ink-2);margin:0;max-width:34em}
+h1{font:700 clamp(40px,5vw,68px)/1.02 var(--serif);margin:10px 0 14px;letter-spacing:-.025em}
+.lede{font:400 19px/1.55 var(--sans);color:var(--ink-2);margin:0;max-width:34em}
 .facts{list-style:none;padding:0;margin:0 0 28px;color:var(--ink-2)}
 .facts li{padding-left:18px;position:relative;margin:4px 0}
 .facts li::before{content:"";position:absolute;left:0;top:.68em;width:7px;height:7px;background:var(--rust)}
@@ -64,9 +64,9 @@ h1{font:700 clamp(44px,6.4vw,92px)/1 var(--serif);margin:12px 0 18px;letter-spac
 a:focus-visible,button:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
 
 figure.scene{margin:0}
-.stage{position:relative;height:clamp(360px,36vw,500px);border:1px solid var(--line);background:linear-gradient(var(--paper),var(--paper-2));border-radius:4px;overflow:hidden;cursor:grab;touch-action:pan-y}
+.stage{position:relative;height:clamp(300px,30vw,400px);border:1px solid var(--line);background:linear-gradient(var(--paper),var(--paper-2));border-radius:4px;overflow:hidden;cursor:grab;touch-action:pan-y}
 .stage:active{cursor:grabbing}
-@media (max-width:600px){.stage{height:280px}}
+@media (max-width:600px){.stage{height:210px}}
 .stage canvas{display:block;width:100%;height:100%}
 .stage img.fallback{width:100%;height:100%;object-fit:contain;background:#fff}
 .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font:600 14px var(--sans);padding:6px 10px;border-radius:3px;white-space:nowrap;opacity:0;transform:translate(-50%,-130%)}
@@ -287,7 +287,7 @@ footer a{color:var(--muted)}
           <button type="button" class="chip" data-mode="eid" aria-pressed="false">Eid only</button>
           <button type="button" class="chip" data-mode="winter" aria-pressed="false">Winter smog</button>
         </div>
-        <figcaption>Every day of Dhaka's PM2.5 from 2016 (back row) to 2024 (front row), one column per day, from the US Embassy monitor. Eid moves about 11 days earlier each year, so the rust columns drift across the rows. Drag to turn the chart, pick a view, and click any rust column to see that Eid's result.</figcaption>
+        <figcaption>Every day of Dhaka's PM2.5 from 2016 (back row) to 2024 (front row), one column per day, from the US Embassy monitor. Eid moves about 11 days earlier each year, so the rust columns drift across the rows. Drag to turn the chart (double-click to reset), pick a view, and click any rust column to see that Eid's result.</figcaption>
       </div>
     </figure>
   </div>
@@ -722,17 +722,29 @@ const PM = {"y0":2016,"v":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
   }
   for (let y=0; y<YEARS; y++) label(String(PM.y0+y), -W/2 - 5.5, y*DZ - D/2 + DZ/2);
 
-  const target = new THREE.Vector3(0, 2.6, 2);
-  let theta = -0.16, phi = 0.7, radius = 100, userMoved = false;
+  const target = new THREE.Vector3(0, 3, 0);
+  const T0 = -0.16, P0 = 0.72;
+  let theta = T0, phi = P0, radius = 100, userMoved = false;
+  const box = [];
+  [-W/2 - 7, W/2 + 1].forEach(x => [0, 340*H].forEach(y => [-D/2, D/2].forEach(z => box.push(new THREE.Vector3(x, y, z)))));
+  const tmp = new THREE.Vector3();
+  function setPos(r){
+    camera.position.set(target.x + r*Math.sin(phi)*Math.sin(theta), target.y + r*Math.cos(phi), target.z + r*Math.sin(phi)*Math.cos(theta));
+    camera.lookAt(target); camera.updateMatrixWorld();
+  }
+  function fits(r){
+    setPos(r);
+    for (const v of box) { tmp.copy(v).project(camera); if (Math.abs(tmp.x) > 0.99 || Math.abs(tmp.y) > 0.95 || tmp.z > 1) return false; }
+    return true;
+  }
   function place(){
-    camera.position.set(target.x + radius*Math.sin(phi)*Math.sin(theta), target.y + radius*Math.cos(phi), target.z + radius*Math.sin(phi)*Math.cos(theta));
-    camera.lookAt(target);
+    let lo = 10, hi = 600;
+    for (let i = 0; i < 22; i++) { const mid = (lo + hi) / 2; if (fits(mid)) hi = mid; else lo = mid; }
+    radius = hi; setPos(radius);
   }
   function resize(){
     const w = stage.clientWidth, h = stage.clientHeight;
     renderer.setSize(w, h, false); camera.aspect = w/h;
-    const hf = 2*Math.atan(Math.tan(camera.fov*Math.PI/360)*camera.aspect);
-    radius = (W/2 + 8) / Math.tan(hf/2) * 1.1;
     camera.updateProjectionMatrix(); place(); draw();
   }
   function draw(){ renderer.render(scene, camera); }
@@ -768,8 +780,8 @@ const PM = {"y0":2016,"v":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     const r = stage.getBoundingClientRect();
     if (drag) {
       if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) > 5) userMoved = true;
-      theta = drag.t - (e.clientX - drag.x) * 0.006;
-      phi = Math.max(0.35, Math.min(1.35, drag.p - (e.clientY - drag.y) * 0.004));
+      theta = Math.max(T0 - 0.8, Math.min(T0 + 0.8, drag.t - (e.clientX - drag.x) * 0.005));
+      phi = Math.max(0.45, Math.min(1.15, drag.p - (e.clientY - drag.y) * 0.004));
       place(); draw(); tip.style.opacity = 0; return;
     }
     ptr.set(((e.clientX - r.left)/r.width)*2 - 1, -((e.clientY - r.top)/r.height)*2 + 1);
@@ -786,15 +798,16 @@ const PM = {"y0":2016,"v":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
   let visible = true, t0 = performance.now();
   new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(stage);
   function loop(now){
-    if (visible && !userMoved && !reduce) { theta = -0.16 + Math.sin((now - t0)/9000) * 0.18; place(); draw(); }
+    if (visible && !userMoved && !reduce) { theta = T0 + Math.sin((now - t0)/9000) * 0.14; place(); draw(); }
     requestAnimationFrame(loop);
   }
   document.querySelectorAll('.modes .chip').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('.modes .chip').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
     const mode = b.dataset.mode; applyMode(mode);
-    phi = mode === "eid" ? 0.55 : 0.7; userMoved = true; theta = -0.16;
+    phi = mode === "eid" ? 0.55 : P0; userMoved = true; theta = T0;
     info.style.display = 'none'; place(); draw();
   }));
+  stage.addEventListener('dblclick', () => { theta = T0; phi = P0; place(); draw(); });
   window.addEventListener('resize', resize);
   resize();
   if (!reduce) requestAnimationFrame(loop);
