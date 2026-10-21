@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hrishin Debnath</title>
+<meta name="description" content="Hrishin Debnath, student researcher and data analyst in Dhaka. Air-quality research, data analysis projects, experience and certifications.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://hrishin.is-a.dev/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hrishin.is-a.dev/">
+<meta property="og:title" content="Hrishin Debnath, student researcher and data analyst">
+<meta property="og:description" content="Air-quality research in Dhaka, Bangla LLM evaluation and 24 data analysis projects with code.">
+<meta property="og:image" content="https://hrishin.is-a.dev/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hrishin.is-a.dev/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f1e7; --paper-2:#efe7d6; --card:#fbf8f1; --line:#d6cbb5; --ink:#1c1917; --ink-2:#44403c; --muted:#78716c;
+  --rust:#9a3412; --rust-2:#c2410c;
+  --serif:"Schibsted Grotesk", "Segoe UI", Arial, sans-serif;
+  --sans:"Schibsted Grotesk", "Segoe UI", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+.score,.certs .cd,.role .when,.guess output{font-variant-numeric:tabular-nums}
+a{color:var(--rust);text-underline-offset:3px}
+a:hover{color:var(--rust-2)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+.label{font:600 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--rust)}
+
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.mark{font:700 21px var(--serif);color:var(--ink);text-decoration:none;white-space:nowrap}
+nav{white-space:nowrap}
+nav a{font-size:16px;color:var(--ink-2);text-decoration:none;margin-left:22px}
+nav a:hover{color:var(--rust)}
+@media (max-width:760px){nav a.hide-sm{display:none} nav a{margin-left:14px;font-size:15px}}
+@media (max-width:420px){.mark{font-size:18px} nav a.hide-xs{display:none}}
+
+.hero{display:grid;grid-template-columns:5fr 6fr;gap:40px;align-items:center;padding:64px 0 48px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;padding:40px 0 28px;gap:24px}}
+h1{font:700 clamp(44px,5.6vw,72px)/1.02 var(--serif);margin:14px 0 20px;letter-spacing:-.025em}
+.lede{font:400 21px/1.5 var(--sans);color:var(--ink-2);margin:0 0 18px;max-width:30em}
+.facts{list-style:none;padding:0;margin:0 0 28px;color:var(--ink-2)}
+.facts li{padding-left:18px;position:relative;margin:4px 0}
+.facts li::before{content:"";position:absolute;left:0;top:.68em;width:7px;height:7px;background:var(--rust)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;padding:11px 18px;border:1px solid var(--ink);border-radius:3px;font:600 16px var(--sans);color:var(--ink);text-decoration:none}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{border-color:var(--rust);color:var(--rust)}
+.btn.primary:hover{background:var(--rust);border-color:var(--rust);color:var(--paper)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+
+figure.scene{margin:0}
+.stage{position:relative;height:440px;border:1px solid var(--line);background:linear-gradient(var(--paper),var(--paper-2));border-radius:4px;overflow:hidden;cursor:grab;touch-action:pan-y}
+.stage:active{cursor:grabbing}
+@media (max-width:600px){.stage{height:280px}}
+.stage canvas{display:block;width:100%;height:100%}
+.stage img.fallback{width:100%;height:100%;object-fit:contain;background:#fff}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font:600 14px var(--sans);padding:6px 10px;border-radius:3px;white-space:nowrap;opacity:0;transform:translate(-50%,-130%)}
+.legend{position:absolute;left:14px;top:12px;font:600 13px var(--sans);color:var(--ink-2);display:flex;gap:16px}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+figcaption{font-size:15px;color:var(--muted);margin-top:10px;line-height:1.5}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:0 0 56px}
+@media (max-width:760px){.tracks{grid-template-columns:1fr}}
+.track{display:block;border:1px solid var(--line);border-radius:4px;padding:22px 24px;text-decoration:none;color:var(--ink);background:var(--card)}
+.track h2{font:700 26px var(--serif);margin:6px 0 6px}
+.track p{margin:0;color:var(--ink-2)}
+.track:hover{border-color:var(--rust)}
+.track:hover h2{color:var(--rust)}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+section h2.big{font:700 40px/1.12 var(--serif);margin:8px 0 8px}
+.sub{color:var(--muted);margin:0 0 32px;max-width:40em}
+h3.part{font:700 26px var(--serif);margin:48px 0 18px}
+
+.papers{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media (max-width:900px){.papers{grid-template-columns:1fr}}
+.paper{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:26px;display:flex;flex-direction:column}
+.paper .status{font:600 14px var(--sans);color:var(--rust);margin:0 0 10px}
+.paper h3{font:700 25px/1.25 var(--serif);margin:0 0 12px}
+.paper p{margin:0 0 16px;color:var(--ink-2)}
+.paper img{width:100%;background:#fff;border:1px solid var(--line);border-radius:2px;margin:4px 0 18px}
+.paper .nums{display:flex;gap:28px;margin:0 0 18px;flex-wrap:wrap}
+.paper .nums b{display:block;font:700 32px/1.1 var(--serif);color:var(--rust)}
+.paper .nums span{font-size:15px;color:var(--muted)}
+.paper .links{margin-top:auto}
+.paper.wide{grid-column:1/-1}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.filters button{font:600 15px var(--sans);padding:7px 13px;border:1px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:3px;cursor:pointer}
+.filters button span{color:var(--muted);font-weight:400;margin-left:2px}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.filters button[aria-pressed="true"] span{color:var(--line)}
+.plist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:980px){.plist{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.plist{grid-template-columns:1fr}}
+.plist li[hidden]{display:none}
+.plist a{display:flex;flex-direction:column;height:100%;padding:20px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink);text-decoration:none}
+.plist h3{font:700 20px/1.3 var(--serif);margin:0 0 8px}
+.plist p{margin:0 0 14px;color:var(--ink-2);font-size:16px;line-height:1.55}
+.plist .tools{font-size:14px;color:var(--muted);margin-top:auto}
+.plist .go{font:600 14px var(--sans);color:var(--rust);margin-top:6px}
+.plist a:hover{border-color:var(--rust)}
+.plist a:hover h3{color:var(--rust)}
+
+.roles{border-top:1px solid var(--line)}
+.role{display:grid;grid-template-columns:190px 1fr;gap:8px 28px;padding:22px 0;border-bottom:1px solid var(--line)}
+@media (max-width:700px){.role{grid-template-columns:1fr}}
+.role .when{font:600 15px var(--sans);color:var(--muted);padding-top:3px}
+.role h3{font:700 22px/1.3 var(--serif);margin:0 0 2px}
+.role .where{margin:0 0 10px;color:var(--muted);font-size:16px}
+.role .rlink{margin-left:8px;font-weight:600}
+.role ul{margin:0;padding-left:20px;color:var(--ink-2)}
+.role li{margin:4px 0}
+
+.certs{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.certs a{display:grid;grid-template-columns:1fr 220px 90px 130px;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.certs .cn{font-weight:600}
+.certs .ci,.certs .cd{color:var(--muted);font-size:16px}
+.certs .cv{color:var(--rust);font-weight:600;font-size:15px;text-align:right}
+.certs a:hover .cn{color:var(--rust)}
+@media (max-width:760px){.certs a{grid-template-columns:1fr auto}.certs .ci{grid-column:1}.certs .cd{grid-column:2;grid-row:1;text-align:right}.certs .cv{grid-column:2;text-align:right}}
+
+.edu{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.edu{grid-template-columns:1fr}}
+.edu div{border:1px solid var(--line);border-radius:4px;padding:20px;background:var(--card)}
+.edu h3{font:700 21px var(--serif);margin:0 0 4px}
+.edu p{margin:0;color:var(--ink-2)}
+.edu .when{color:var(--muted);font-size:15px;font-weight:600;margin-bottom:6px}
+
+.skills{display:grid;grid-template-columns:200px 1fr;gap:10px 24px;margin:0}
+.skills dt{font-weight:600;color:var(--muted)}
+.skills dd{margin:0}
+@media (max-width:600px){.skills{grid-template-columns:1fr}.skills dd{margin-bottom:12px}}
+
+.contact p{font:400 21px/1.5 var(--sans);max-width:34em;margin:0 0 22px;color:var(--ink-2)}
+/* interactive pieces */
+.modes{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{font:600 15px var(--sans);padding:7px 13px;border:1px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:3px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip:hover{border-color:var(--rust)}
+.einfo{position:absolute;left:14px;bottom:12px;right:14px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rust);padding:10px 14px;font-size:15px;color:var(--ink-2);display:none}
+.einfo b{color:var(--ink)}
+.hint{position:absolute;right:14px;top:12px;font:600 13px var(--sans);color:var(--muted)}
+.chart{position:relative;margin:4px 0 14px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart .ct{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font:600 13px var(--sans);padding:5px 8px;border-radius:3px;white-space:nowrap;transform:translate(-50%,-120%);opacity:0}
+.small{font-size:14px;color:var(--muted)}
+
+.game{margin-top:28px;border:1px solid var(--ink);border-radius:4px;background:var(--card);padding:26px}
+.game-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.game h3{font:700 26px var(--serif);margin:0}
+.score{font:600 16px var(--sans);color:var(--ink-2)}
+.score b{color:var(--rust)}
+.game-body{display:grid;grid-template-columns:3fr 2fr;gap:28px;margin-top:16px}
+@media (max-width:800px){.game-body{grid-template-columns:1fr}}
+.bars{display:flex;align-items:flex-end;gap:8px;height:190px;border-bottom:1px solid var(--line);padding-top:24px}
+.bars div{flex:1;position:relative;background:#a8a29e;border-radius:2px 2px 0 0;min-height:2px}
+.bars div span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font:600 13px var(--sans);color:var(--ink-2)}
+.bars div.q{background:repeating-linear-gradient(45deg,var(--line),var(--line) 6px,var(--card) 6px,var(--card) 12px);border:1px dashed var(--muted)}
+.bars div.mk{background:transparent}
+.bars i{position:absolute;left:-3px;right:-3px;height:3px}
+.days{display:flex;gap:8px;margin-top:6px}
+.days span{flex:1;text-align:center;font-size:13px;color:var(--muted)}
+.guess label{display:block;font-weight:600;margin-bottom:6px}
+.guess output{font:700 34px var(--serif);color:var(--rust);display:block;margin-bottom:6px}
+.guess input[type=range]{width:100%;accent-color:#9a3412}
+.reveal{margin-top:14px;font-size:16px}
+.reveal table{border-collapse:collapse;width:100%;margin:6px 0 10px}
+.reveal td{padding:5px 0;border-bottom:1px solid var(--line)}
+.reveal td:last-child{text-align:right;font-weight:600}
+.key{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:14px;color:var(--muted)}
+.key[hidden]{display:none}
+.key i{display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle}
+
+.play{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:0 0 44px}
+@media (max-width:900px){.play{grid-template-columns:1fr}}
+.panel{border:1px solid var(--ink);border-radius:4px;background:var(--card);padding:24px}
+.panel h3{font:700 24px var(--serif);margin:4px 0 6px}
+.qtext{font-size:18px;margin:12px 0 14px;color:var(--ink)}
+.opts{display:grid;gap:8px}
+.opts button{text-align:left;font:500 17px var(--sans);padding:11px 14px;border:1px solid var(--line);background:#fff;border-radius:3px;cursor:pointer;color:var(--ink)}
+.opts button:hover:not(:disabled){border-color:var(--rust)}
+.opts button.right{border-color:#3f6212;background:#ecfccb}
+.opts button.wrong{border-color:var(--rust);background:#fde7dc}
+.opts button:disabled{cursor:default}
+.qfoot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px;flex-wrap:wrap}
+.qexp{margin:12px 0 0;color:var(--ink-2);font-size:16px;min-height:1.5em}
+.big2{font:700 30px var(--serif);color:var(--rust)}
+
+.tl{position:relative;margin:0 0 8px;padding-bottom:28px}
+.tl-row{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:12px;height:30px}
+@media (max-width:600px){.tl-row{grid-template-columns:96px 1fr}}
+.tl-name{font-size:14px;font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-track{position:relative;height:14px;background:var(--paper-2);border-radius:2px}
+.tl-bar{position:absolute;top:0;height:14px;background:#78716c;border-radius:2px;cursor:pointer;border:0;padding:0}
+.tl-bar.now{background:var(--rust)}
+.tl-bar:hover,.tl-bar:focus-visible{background:var(--ink)}
+.tl-axis{position:absolute;left:162px;right:0;bottom:0;height:20px}
+@media (max-width:600px){.tl-axis{left:108px}}
+.tl-axis span{position:absolute;transform:translateX(-50%);font-size:13px;color:var(--muted)}
+.role.flash{background:#fde7dc;transition:background .6s}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;font-size:15px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#">Hrishin Debnath</a>
+    <nav aria-label="Main">
+      <a href="#research">Research</a>
+      <a href="#data" class="hide-xs">Data analysis</a>
+      <a href="#experience" class="hide-sm">Experience</a>
+      <a href="#certifications" class="hide-sm">Certifications</a>
+      <a href="#contact" class="hide-sm">Contact</a>
+      <a href="Hrishin_Debnath_CV_Internship.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <span class="label">Student researcher and data analyst, Dhaka</span>
+      <h1>Hrishin Debnath</h1>
+      <p class="lede">I study the air in Dhaka, I test whether language models answer medical questions worse in Bangla than in English, and I turn messy business data into clear answers.</p>
+      <ul class="facts">
+        <li>Sole author of two air-quality papers, both under review</li>
+        <li>24 data analysis projects, each with its code</li>
+        <li>Research intern at CreateBud Inc.</li>
+      </ul>
+      <div class="btns">
+        <a class="btn primary" href="#research">Research</a>
+        <a class="btn primary" href="#data">Data analysis</a>
+        <a class="btn" href="Hrishin_Debnath_CV_Internship.pdf" download>Download CV</a>
+      </div>
+    </div>
+    <figure class="scene">
+      <div class="stage" id="stage" role="img" aria-label="3D chart of daily PM2.5 in Dhaka from 2016 to 2024. Each column is one day. Columns for Eid holidays are shown in rust and are visibly lower than the days around them.">
+        <div class="legend" aria-hidden="true"><span><i style="background:#57534e"></i>Daily PM2.5</span><span><i style="background:#9a3412"></i>Eid holidays</span></div>
+        <div class="tip" id="tip"></div>
+        <div class="einfo" id="einfo" aria-live="polite"></div>
+      </div>
+      <div class="modes" role="group" aria-label="Chart view">
+        <button type="button" class="chip" data-mode="all" aria-pressed="true">All days</button>
+        <button type="button" class="chip" data-mode="eid" aria-pressed="false">Eid only</button>
+        <button type="button" class="chip" data-mode="winter" aria-pressed="false">Winter smog</button>
+      </div>
+      <figcaption>Every day of Dhaka's PM2.5 from 2016 (back row) to 2024 (front row), one column per day, from the US Embassy monitor. Eid moves about 11 days earlier each year, so the rust columns drift across the rows. Drag to turn the chart, pick a view above, and click any rust column to see that Eid's result.</figcaption>
+    </figure>
+  </div>
+
+  <div class="tracks">
+    <a class="track" href="#research"><span class="label">Track 1</span><h2>Research</h2><p>Two sole-author air-quality papers under review, and a study of language models in Bangla.</p></a>
+    <a class="track" href="#data"><span class="label">Track 2</span><h2>Data analysis</h2><p>24 projects in Python, SQL, Excel, Power BI, Tableau and R, plus six roles.</p></a>
+  </div>
+</div>
+
+<section id="research">
+  <div class="wrap">
+    <span class="label">Track 1</span>
+    <h2 class="big">Research</h2>
+    <p class="sub">Both papers use public data, and the code for each is open. <a href="Hrishin_Debnath_CV_Research.pdf" download>Download my research CV</a></p>
+    <div class="papers">
+      <article class="paper">
+        <p class="status">Under review, Columbia Junior Science Journal</p>
+        <h3>Does Dhaka's air get cleaner when the city empties?</h3>
+        <p>Dhaka empties out for each Eid as people travel home. I used those holidays as a natural experiment: compare PM2.5 during Eid with the weeks around it, for every Eid from 2016 to 2024, and check the result with 2,000 placebo runs.</p>
+        <div class="nums">
+          <div><b>36%</b><span>lower PM2.5 during Eid</span></div>
+          <div><b>14 of 16</b><span>holidays showed a drop</span></div>
+        </div>
+        <div class="chart" id="eidchart" role="img" aria-label="Line chart: average PM2.5 across 16 Eid holidays, as a percent of each holiday's normal level, from 21 days before to 21 days after Eid. It drops to about 60 percent during the Eid window."></div>
+        <p class="small">Average of 16 Eid holidays, as % of each holiday's normal level. Shaded band: 95% bootstrap interval. Hover to read each day.</p>
+        <p class="links">Sole author. 75,325 hourly readings. 95% confidence interval: 22% to 47% lower. <a href="https://github.com/hrishinthecoder/dhaka-eid-pm25">Code and data</a></p>
+      </article>
+      <article class="paper">
+        <p class="status">Under review, Air Quality, Atmosphere &amp; Health</p>
+        <h3>Forecasting tomorrow's PM2.5 in Dhaka</h3>
+        <p>A model that predicts tomorrow's average PM2.5 from one reference monitor, ERA5 weather and satellite fire data. The bar to beat is "tomorrow equals today", a strong baseline for daily air quality.</p>
+        <div class="nums">
+          <div><b>5.22</b><span>&micro;g/m&sup3; lower error than that bar</span></div>
+          <div><b>p = 0.022</b><span>Diebold-Mariano test</span></div>
+        </div>
+        <img src="https://raw.githubusercontent.com/hrishinthecoder/dhaka-pm25-forecast/main/approach2/reports/figures/pred_vs_actual_xgboost.png" alt="Scatter plot of predicted against actual next-day PM2.5, with points close to the diagonal line." loading="lazy" style="max-width:360px;align-self:center">
+        <p class="links">Sole author. XGBoost, checked with walk-forward testing and an independent LightGBM model. <a href="https://github.com/hrishinthecoder/dhaka-pm25-forecast">Code</a></p>
+      </article>
+      <div class="game paper wide" id="game">
+        <div class="game-head">
+          <h3>Beat my model</h3>
+          <span class="score" id="gscore">Round 1 of 5</span>
+        </div>
+        <p class="small" style="margin:6px 0 0">These are real days from the test year the model never saw. Look at the last 7 days of PM2.5, guess tomorrow, then see how you did against my model and against "tomorrow equals today".</p>
+        <div class="game-body">
+          <div>
+            <div class="bars" id="gbars"></div>
+            <div class="days" id="gdays"></div>
+            <div class="key" id="gkey" hidden><span><i style="background:#1c1917"></i>Actual</span><span><i style="background:#9a3412"></i>Your guess</span><span><i style="background:#2563eb"></i>My model</span></div>
+          </div>
+          <div class="guess">
+            <label for="grange">Your guess for tomorrow (&micro;g/m&sup3;)</label>
+            <output id="gout" for="grange">100</output>
+            <input type="range" id="grange" min="0" max="300" step="1" value="100">
+            <div class="btns" style="margin-top:14px"><button type="button" class="btn primary" id="gbtn">Lock in my guess</button></div>
+            <div class="reveal" id="greveal" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+      <article class="paper wide">
+        <p class="status">In preparation, mentored study at CreateBud Inc.</p>
+        <h3>Do language models answer medical questions worse in Bangla?</h3>
+        <p>I am translating the 12,000-question MedQA medical exam into Bangla so the same questions can be asked in both languages. In a 500-question pilot of 5 open models, a revised prompt cut flagged translations for the chosen model from 399 to 100. Next, I want to study language disparity in LLMs further and test whether image-generation models do worse with Bangla prompts.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="data">
+  <div class="wrap">
+    <span class="label">Track 2</span>
+    <h2 class="big">Data analysis</h2>
+    <p class="sub">Projects from internships, certificates and my own practice. Start with the two games below, then browse every project. <a href="Hrishin_Debnath_CV_Internship.pdf" download>Download my internship CV</a></p>
+    <div class="play">
+      <div class="panel" id="quiz">
+        <span class="label">Data quiz</span>
+        <h3>Guess what the data said</h3>
+        <p class="small" style="margin:0">Five real results from my projects. Pick an answer to see if your instinct matches the data.</p>
+        <p class="qtext" id="qtext"></p>
+        <div class="opts" id="qopts"></div>
+        <p class="qexp" id="qexp" aria-live="polite"></p>
+        <div class="qfoot"><span class="score" id="qscore"></span><button type="button" class="btn" id="qnext" hidden>Next question</button></div>
+      </div>
+      <div class="panel" id="saas">
+        <span class="label">Drag the slider</span>
+        <h3>Losing customers, keeping revenue</h3>
+        <p class="small" style="margin:0">From my SaaS cohort model (synthetic data). Move through the months after signup and watch the two lines split.</p>
+        <div class="chart" id="saaschart" role="img" aria-label="Line chart of customer retention falling to about 70 percent at month 12 while revenue retention stays near 95 percent."></div>
+        <input type="range" id="srange" min="0" max="18" value="12" style="width:100%;accent-color:#9a3412" aria-label="Months after signup">
+        <p style="margin:10px 0 0">Month <b id="sm">12</b>: <span class="big2" id="sl">69.5%</span> of customers still paying, <span class="big2" id="sn" style="color:#1c1917">94.3%</span> of revenue kept.</p>
+        <p class="small" style="margin:6px 0 0">The customers who stay upgrade, so revenue barely falls. The real problem is early churn. <a href="https://github.com/hrishinthecoder/Saas_Cohort_Model">See the model</a></p>
+      </div>
+    </div>
+    <h3 class="part" style="margin-top:0">All projects</h3>
+<div class="filters" role="group" aria-label="Filter projects by tool">
+<button type="button" data-f="all" aria-pressed="true">All <span>24</span></button>
+<button type="button" data-f="python" aria-pressed="false">Python <span>9</span></button>
+<button type="button" data-f="sql" aria-pressed="false">SQL <span>5</span></button>
+<button type="button" data-f="excel" aria-pressed="false">Excel <span>3</span></button>
+<button type="button" data-f="powerbi" aria-pressed="false">Power BI <span>2</span></button>
+<button type="button" data-f="tableau" aria-pressed="false">Tableau <span>3</span></button>
+<button type="button" data-f="r" aria-pressed="false">R <span>2</span></button>
+</div><ol class="plist">
+<li data-t="excel"><a href="https://github.com/hrishinthecoder/Saas_Cohort_Model"><h3>SaaS cohort retention model</h3><p>Customer retention falls to about 70% by month 12 while revenue retention holds near 95%. A 1,000-run Monte Carlo puts next-year revenue retention between 83% and 110%. Synthetic 17,585-row ledger.</p><span class="tools">Excel, Power Query, DAX</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/elevvo-pathways-internship/tree/main/Task_03_RFM_Analysis"><h3>Customer segmentation with RFM</h3><p>Segmented 1,998 retail customers by recency, frequency and spend. 306 &quot;Champions&quot; brought in 23.81% of revenue. Elevvo internship.</p><span class="tools">Python, pandas</span><span class="go">Code</span></a></li>
+<li data-t="powerbi"><a href="https://github.com/hrishinthecoder/Existing-Portfolio-Projects/blob/main/Loan%20Performance%20and%20Investor%20Return%20Analysis.pbix"><h3>Loan portfolio and investor returns</h3><p>Power BI dashboards for 113,937 loans worth $950M: lender yield, defaults, delinquency and investor returns. TechnoColabs internship.</p><span class="tools">Power BI, DAX, Python</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/Existing-Portfolio-Projects/blob/main/Hotel%20Business%20Problem%20Analysis.ipynb"><h3>Hotel booking cancellations</h3><p>Why 37.1% of 119,390 hotel bookings were cancelled, and which factors move the rate.</p><span class="tools">Python, pandas, seaborn</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/Existing-Portfolio-Projects/blob/main/Maximizing%20Revenue%20for%20drivers%20through%20payment%20type%20%28Hypothesis%20Testing%29.ipynb"><h3>Does payment type change taxi fares?</h3><p>Hypothesis test on yellow-taxi trips from January 2020: does the way a passenger pays change how much the driver earns?</p><span class="tools">Python, SciPy, statistics</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/Technocolabs-Attrition-Analysis-and-Turnover-Prediction"><h3>Employee attrition and turnover prediction</h3><p>Analysed 1,470 employee records to find what drives people to leave, then predicted who is likely to go. TechnoColabs internship.</p><span class="tools">Python, scikit-learn</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/elevvo-pathways-internship/tree/main/Task07_TimeSeries_RetailSales"><h3>Walmart sales over time</h3><p>Monthly trend, seasonality and top stores, with a Holt-Winters forecast and an EWMA fallback. Elevvo internship.</p><span class="tools">Python, statsmodels</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/elevvo-pathways-internship/tree/main/Task_06_Web_Scraping_of_jobs"><h3>Job postings scraper</h3><p>Scraped and cleaned 1,500+ job postings to find the roles, skills and locations in demand. Elevvo internship.</p><span class="tools">Python, BeautifulSoup</span><span class="go">Code</span></a></li>
+<li data-t="sql"><a href="https://github.com/hrishinthecoder/elevvo-pathways-internship/tree/main/Task_05_SQL_Analysis"><h3>Chinook music store in SQL</h3><p>Customer, revenue, catalogue and staff questions answered with CTEs and window functions, plus a short report. Elevvo internship.</p><span class="tools">PostgreSQL</span><span class="go">Code</span></a></li>
+<li data-t="sql"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/tree/main/SQL%20and%20Python/Netflix%20series%20analysis"><h3>Netflix library analysis</h3><p>Trends and patterns in the Netflix content library, answered with SQL queries.</p><span class="tools">PostgreSQL</span><span class="go">Code</span></a></li>
+<li data-t="sql"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/tree/main/SQL%20and%20Python/Coffeshop%20connection%20with%20python%20and%20sql"><h3>Coffee shop employee database</h3><p>Automated PostgreSQL database for staff across several branches, loaded from CSV with a Python ETL script.</p><span class="tools">Python, PostgreSQL</span><span class="go">Code</span></a></li>
+<li data-t="sql"><a href="https://github.com/hrishinthecoder/Existing-Portfolio-Projects/blob/main/Pizza%20Sales%20Analysis.sql"><h3>Pizza sales</h3><p>Order trends, revenue, best sellers and customer behaviour for a pizza restaurant.</p><span class="tools">MySQL</span><span class="go">Code</span></a></li>
+<li data-t="tableau"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/tree/main/Tableau/Bank%20Customer%20Churn%20Analysis"><h3>Bank customer churn</h3><p>Churn among 10,000 bank customers: who leaves, the risk factors, and where retention effort should go.</p><span class="tools">Tableau, Excel</span><span class="go">Code</span></a></li>
+<li data-t="tableau"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/tree/main/Tableau/Washington%20House%20Sales%20Dashboard"><h3>Washington house sales</h3><p>21,060 property sales broken down by size, bedrooms, condition and price.</p><span class="tools">Tableau</span><span class="go">Code</span></a></li>
+<li data-t="tableau"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/tree/main/Tableau/British%20Airways%20Review"><h3>British Airways reviews</h3><p>Customer reviews of British Airways, analysed and visualised as a dashboard.</p><span class="tools">Tableau</span><span class="go">Code</span></a></li>
+<li data-t="powerbi"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/tree/main/PowerBI/Plant%20Co.%20Profit%20Performance%20Analysis"><h3>Plant Co. sales and profit</h3><p>2023 sales, quantity and gross profit by region in an interactive dashboard.</p><span class="tools">Power BI, Power Query, DAX</span><span class="go">Code</span></a></li>
+<li data-t="excel"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/blob/main/Excel/Fitness_analysis.xlsx"><h3>Fitness equipment sales</h3><p>Sales and profit from 2018 to 2024 for three suppliers: top brands, growth and seasonality.</p><span class="tools">Excel</span><span class="go">Code</span></a></li>
+<li data-t="excel"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/tree/main/Excel/Coffee%20Shop%20Dashboard"><h3>Coffee orders dashboard</h3><p>Coffee order records covering sales, customer demographics and products, cleaned in Power Query.</p><span class="tools">Excel, Power Query</span><span class="go">Code</span></a></li>
+<li data-t="r"><a href="https://github.com/hrishinthecoder/bellabeat_case_study"><h3>Bellabeat wellness case study</h3><p>Fitbit activity and sleep data turned into marketing advice for Bellabeat. Google Data Analytics capstone.</p><span class="tools">R, SQL</span><span class="go">Code</span></a></li>
+<li data-t="r"><a href="https://github.com/hrishinthecoder/Existing-Portfolio-Projects/blob/main/EDA%20on%20Vehicles.R"><h3>Vehicle repair costs by state</h3><p>Labour cost, labour hours and mileage compared across U.S. states.</p><span class="tools">R, tidyverse</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/Best-Portfolio-Projects/tree/main/Python/EDA%20on%20Crime"><h3>Crime patterns</h3><p>Crime incidents in one city by type, place, time of day and year.</p><span class="tools">Python, pandas</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/CAPM-Project"><h3>CAPM stock app</h3><p>Streamlit app that computes beta and expected return for stocks with the Capital Asset Pricing Model.</p><span class="tools">Python, Streamlit</span><span class="go">Code</span></a></li>
+<li data-t="python"><a href="https://github.com/hrishinthecoder/Olympic-Dashboard"><h3>Olympic Games dashboard</h3><p>Medal counts, athletes and country rankings over time, with year, country and sport filters.</p><span class="tools">Python</span><span class="go">Code</span></a></li>
+<li data-t="sql"><a href="https://github.com/hrishinthecoder/fcc-postgres-salon-appointment-scheduler"><h3>Salon appointment scheduler</h3><p>Command-line booking system for a salon, built for the freeCodeCamp Relational Database certificate.</p><span class="tools">PostgreSQL, Bash</span><span class="go">Code</span></a></li>
+</ol>
+
+    <h3 class="part" id="experience">Experience</h3>
+    <div class="tl" id="timeline" aria-label="Timeline of roles from 2024 to now"></div>
+<div class="roles">
+<article class="role" id="r-createbud"><div class="when">Jul 2026 to now</div><div><h3>Research Intern, CreateBud Inc.</h3><p class="where">Remote, part-time</p><ul><li>Run a mentored study on translating the 12,000-question MedQA medical exam into Bangla, to test whether language models answer worse in Bangla than in English.</li><li>In a 500-question pilot of 5 open models, a revised prompt cut flagged translations for the chosen model from 399 to 100.</li><li>Planted errors to test the checks: they caught 50 of 50 swapped answer options and 36 of 50 tenfold number changes.</li><li>Tested CreateBud&#x27;s pre-release co-working platform and reported 6+ bugs in its project, team and task features.</li></ul></div></article>
+<article class="role" id="r-vibeweave"><div class="when">Jun 2026 to now</div><div><h3>Market Analyst, VibeWeave</h3><p class="where">Remote, part-time, early-stage startup</p><ul><li>Built market studies of India&#x27;s textile industry for five regions: fabric prices, raw-material commodities and listed companies.</li><li>Built a verified database of 26 clothing manufacturers.</li><li>Wrote a buyer-side due-diligence report on an Indian textile supplier and researched 35 angel investors for the startup&#x27;s fundraising.</li></ul></div></article>
+<article class="role" id="r-elevvo"><div class="when">Aug 2025 to Sep 2025</div><div><h3>Data Analyst Intern, Elevvo Pathways</h3><p class="where">Remote, part-time <a class="rlink" href="https://github.com/hrishinthecoder/elevvo-pathways-internship">Work on GitHub</a></p><ul><li>Segmented 1,998 retail customers with RFM analysis in Python; 306 &quot;Champions&quot; generated 23.81% of revenue.</li><li>Scraped and analysed 1,500+ job postings, forecast Walmart sales with Holt-Winters, and analysed the Chinook database in PostgreSQL.</li></ul></div></article>
+<article class="role" id="r-springer"><div class="when">Mar 2025 to Jun 2025</div><div><h3>Data Automation Intern, Springer Capital</h3><p class="where">Remote, part-time</p><ul><li>Maintained and fixed 10+ Microsoft Power Automate flows, including JSON schema and Outlook mailbox configuration errors.</li><li>Ran sentiment analysis on 2,191 employee emails with TextBlob and VADER to score and rank employee engagement by month.</li></ul></div></article>
+<article class="role" id="r-technocolabs"><div class="when">Sep 2024 to Nov 2024</div><div><h3>Data Analyst Intern, TechnoColabs Softwares</h3><p class="where">Remote, part-time <a class="rlink" href="https://github.com/hrishinthecoder/Technocolabs-Attrition-Analysis-and-Turnover-Prediction">Attrition project</a></p><ul><li>Built Power BI loan-portfolio and borrower-risk dashboards on a company dataset of 113,937 loans worth $950M, of which 14.93% had defaulted or been charged off.</li><li>Analysed 1,470 employee records for an attrition and turnover-prediction project.</li></ul></div></article>
+<article class="role" id="r-abelling"><div class="when">Sep 2024 to Apr 2026</div><div><h3>Data Annotator, Abelling</h3><p class="where">Remote, freelance</p><ul><li>Annotated 5,000+ machine-learning data items on Encord, following detailed guidelines, and earned performance bonuses.</li></ul></div></article>
+</div>
+
+    <h3 class="part">Leadership and volunteering</h3>
+<div class="roles">
+<article class="role" id="r-corvis"><div class="when">Dec 2024 to now</div><div><h3>Deputy Director, Research and Development, CORViS</h3><p class="where">Student-led non-profit for STEM, environment and social science, Dhaka <a class="rlink" href="https://corvisbd.org">corvisbd.org</a></p><ul><li>Organised 5+ seminars in the Speaks Academia series by inviting professors and industry professionals, including a panel on careers and AI in economics.</li><li>Built relationships with 10+ academic and industry experts through direct outreach.</li></ul></div></article>
+<article class="role" id="r-quantum"><div class="when">2018 to now</div><div><h3>Volunteer, Quantum Foundation</h3><p class="where">Dhaka and the Lama campus</p><ul><li>Graduate of the Quantum Method foundation course. Help organise weekly programmes and volunteer at the Lama campus with children and supplies.</li></ul></div></article>
+<article class="role" id="r-scouting"><div class="when">2024</div><div><h3>Scout, Scouting</h3><p class="where">JOTA-JOTI, the worldwide scouting event online and on air</p><ul><li>Completed the JOTA-JOTI 2024 challenges.</li></ul></div></article>
+</div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <h2 class="big">Certifications and education</h2>
+    <p class="sub">Each certificate links to its public credential.</p>
+<ul class="certs">
+<li><a href="https://www.credly.com/badges/0087744b-5af0-4e6f-a1a2-06e77eba50e8/public_url"><span class="cn">Applied Data Science Lab</span><span class="ci">WorldQuant University</span><span class="cd">Jun 2026</span><span class="cv">View credential</span></a></li>
+<li><a href="https://www.coursera.org/account/accomplishments/specialization/GI3P9HHKWBNE"><span class="cn">Google Data Analytics Professional Certificate</span><span class="ci">Google, Coursera</span><span class="cd">Oct 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://www.coursera.org/account/accomplishments/specialization/F5KYZFRC60PO"><span class="cn">Google Business Intelligence Professional Certificate</span><span class="ci">Google, Coursera</span><span class="cd">Nov 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://www.hackerrank.com/certificates/cfedf686ceb5"><span class="cn">SQL (Advanced)</span><span class="ci">HackerRank</span><span class="cd">May 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://freecodecamp.org/certification/hrishindebnath/data-analysis-with-python-v7"><span class="cn">Data Analysis with Python</span><span class="ci">freeCodeCamp</span><span class="cd">Jan 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://freecodecamp.org/certification/HrishinDebnath/relational-database-v8"><span class="cn">Relational Database</span><span class="ci">freeCodeCamp</span><span class="cd">Jul 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://freecodecamp.org/certification/HrishinDebnath/javascript-algorithms-and-data-structures-v8"><span class="cn">JavaScript Algorithms and Data Structures</span><span class="ci">freeCodeCamp</span><span class="cd">Sep 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://www.credly.com/badges/e025591e-069b-46fb-b482-cadb8673c565"><span class="cn">Data Analytics Essentials</span><span class="ci">Cisco Networking Academy</span><span class="cd">Apr 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://www.linkedin.com/learning/certificates/ec5eeaabaffa3f8c48f8452f5a5ccac8346d727771e9b38356d94af78f7afe26"><span class="cn">Career Essentials in Data Analysis</span><span class="ci">Microsoft and LinkedIn</span><span class="cd">Jun 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://www.linkedin.com/learning/certificates/22ffae2f3bb649f0cda836e7f3a98fa5bb4f55d80de9d8e6b576f89e7cb495c4"><span class="cn">Advanced Power BI: DAX</span><span class="ci">LinkedIn Learning</span><span class="cd">Sep 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/32A6DqtsbF7LbKdcq/NkaC7knWtjSbi6aYv_32A6DqtsbF7LbKdcq_p6gs5BNrnDWaEArxG_1755855632551_completion_certificate.pdf"><span class="cn">Quantium Data Analytics job simulation</span><span class="ci">Forage</span><span class="cd">Aug 2025</span><span class="cv">View credential</span></a></li>
+<li><a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/Tata/MyXvBcppsW2FkNYCX_Tata%20Group_p6gs5BNrnDWaEArxG_1721980778410_completion_certificate.pdf"><span class="cn">Tata Data Visualisation job simulation</span><span class="ci">Forage</span><span class="cd">Jul 2024</span><span class="cv">View credential</span></a></li>
+<li><a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/Accenture%20North%20America/hzmoNKtzvAzXsEqx8_Accenture%20North%20America_p6gs5BNrnDWaEArxG_1718467348034_completion_certificate.pdf"><span class="cn">Accenture Data Analytics and Visualization job simulation</span><span class="ci">Forage</span><span class="cd">Jun 2024</span><span class="cv">View credential</span></a></li>
+</ul>
+    <h3 class="part">Education</h3>
+    <div class="edu">
+      <div><p class="when">2026 to 2028, expected</p><h3>St. Joseph Higher Secondary College, Dhaka</h3><p>Higher Secondary Certificate (HSC), Science, English version</p></div>
+      <div><p class="when">2026</p><h3>Cosmo School, Dhaka</h3><p>Secondary School Certificate (SSC), Science, English version. GPA 5.00 out of 5.00.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2 class="big">Tools</h2>
+    <p class="sub">What I use, grouped by job.</p>
+    <dl class="skills">
+      <dt>Languages</dt><dd>Python, SQL, R, DAX, some JavaScript and TypeScript</dd>
+      <dt>Modelling</dt><dd>XGBoost, LightGBM, scikit-learn, time-series forecasting, walk-forward validation, SHAP, hypothesis testing</dd>
+      <dt>Analysis and BI</dt><dd>pandas, Power BI, Tableau, Excel with Power Query and Power Pivot</dd>
+      <dt>Databases</dt><dd>PostgreSQL, MySQL</dd>
+      <dt>Automation</dt><dd>Microsoft Power Automate, web scraping with BeautifulSoup</dd>
+    </dl>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2 class="big">Contact</h2>
+    <p>I am looking for data analyst internships and for a professor to guide my next study on language disparity in LLMs. Email is the fastest way to reach me. I'm in Dhaka, UTC+6.</p>
+    <div class="btns">
+      <a class="btn primary" href="mailto:i.am.hrishin@gmail.com">i.am.hrishin@gmail.com</a>
+      <a class="btn" href="tel:+8801311086010">+880 1311 086010</a>
+      <a class="btn" href="Hrishin_Debnath_CV_Internship.pdf" download>CV for internships</a>
+      <a class="btn" href="Hrishin_Debnath_CV_Research.pdf" download>CV for research</a>
+      <a class="btn" href="https://www.linkedin.com/in/hrishin-debnath/">LinkedIn</a>
+      <a class="btn" href="https://github.com/hrishinthecoder">GitHub</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Hrishin Debnath, Dhaka</span>
+    <span><a href="privacy.html">Privacy</a> &nbsp;&middot;&nbsp; <a href="terms.html">Terms</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const btns = document.querySelectorAll('.filters button');
+  const items = document.querySelectorAll('.plist li');
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    const f = b.dataset.f;
+    items.forEach(li => { li.hidden = !(f === 'all' || li.dataset.t === f); });
+  }));
+})();
+
+const CURVE = [[-21,107.4,85.0,130.3],[-20,122.0,100.4,146.5],[-19,128.0,110.0,145.7],[-18,115.2,97.5,135.6],[-17,121.2,103.0,139.9],[-16,107.7,93.7,122.0],[-15,102.8,84.9,122.0],[-14,99.5,81.3,118.7],[-13,102.9,86.7,120.6],[-12,122.1,103.1,142.1],[-11,112.7,96.8,131.8],[-10,105.0,88.0,122.8],[-9,107.6,92.4,124.1],[-8,100.4,89.9,111.1],[-7,109.1,95.1,124.7],[-6,101.8,85.8,119.9],[-5,90.6,77.2,104.6],[-4,98.1,87.7,108.9],[-3,96.0,85.2,107.1],[-2,95.7,79.8,112.9],[-1,82.9,64.3,103.3],[0,62.5,51.7,73.8],[1,61.4,47.8,76.9],[2,67.0,50.5,85.9],[3,71.7,54.3,92.4],[4,83.5,62.8,106.4],[5,79.4,65.1,96.6],[6,69.2,56.2,82.8],[7,77.2,64.9,88.4],[8,74.4,61.8,85.1],[9,89.4,74.8,104.2],[10,88.1,77.2,100.3],[11,80.0,66.0,93.3],[12,82.3,71.6,93.4],[13,93.4,79.5,108.0],[14,98.6,82.7,114.2],[15,96.9,83.7,111.5],[16,85.3,75.7,94.8],[17,83.3,73.8,92.5],[18,83.9,75.2,92.4],[19,86.9,74.4,99.2],[20,95.2,82.1,108.2],[21,102.8,81.7,124.1]], GAME = [["2024-03-23",[96,169,143,126,64,114,114],69,109,114],["2024-03-24",[169,143,126,64,114,114,69],91,73,69],["2024-03-25",[143,126,64,114,114,69,91],50,77,91],["2024-03-26",[126,64,114,114,69,91,50],110,82,50],["2024-03-27",[64,114,114,69,91,50,110],99,85,110],["2024-03-28",[114,114,69,91,50,110,99],118,83,99],["2024-03-29",[114,69,91,50,110,99,118],63,81,118],["2024-03-30",[69,91,50,110,99,118,63],46,65,63],["2024-03-31",[91,50,110,99,118,63,46],66,57,46],["2024-04-01",[50,110,99,118,63,46,66],70,81,66],["2024-04-02",[110,99,118,63,46,66,70],68,81,70],["2024-04-03",[99,118,63,46,66,70,68],67,77,68],["2024-04-04",[118,63,46,66,70,68,67],74,74,67],["2024-04-05",[63,46,66,70,68,67,74],75,59,74],["2024-04-06",[46,66,70,68,67,74,75],77,64,75],["2024-04-07",[66,70,68,67,74,75,77],90,63,77],["2024-04-08",[70,68,67,74,75,77,90],120,75,90],["2024-04-09",[68,67,74,75,77,90,120],144,95,120],["2024-04-10",[67,74,75,77,90,120,144],92,108,144],["2024-04-11",[74,75,77,90,120,144,92],95,84,92],["2024-04-12",[75,77,90,120,144,92,95],118,103,95],["2024-04-13",[77,90,120,144,92,95,118],128,110,118],["2024-04-14",[90,120,144,92,95,118,128],128,102,128],["2024-04-15",[120,144,92,95,118,128,128],68,110,128],["2024-04-16",[144,92,95,118,128,128,68],75,70,68],["2024-04-17",[92,95,118,128,128,68,74],63,79,75],["2024-04-18",[95,118,128,128,68,74,63],60,64,63],["2024-04-19",[118,128,128,68,74,63,60],52,87,60],["2024-04-20",[128,128,68,74,63,60,52],51,92,52],["2024-04-21",[128,68,74,63,60,52,51],64,66,51],["2024-04-22",[68,74,63,60,52,51,64],64,64,64],["2024-04-23",[74,63,60,52,51,64,64],72,63,64],["2024-04-24",[63,60,52,51,64,64,72],82,82,72],["2024-04-25",[60,52,51,64,64,72,82],69,78,82],["2024-04-26",[52,51,64,64,72,82,69],63,90,69],["2024-04-27",[51,64,64,72,82,69,63],70,60,63],["2024-04-28",[64,64,72,82,69,63,70],68,78,70],["2024-04-29",[64,72,82,69,63,70,68],69,105,68],["2024-04-30",[72,82,69,63,70,68,69],49,87,69],["2024-05-01",[82,69,63,70,68,69,49],63,67,49],["2024-05-02",[69,63,70,68,69,49,63],83,67,63],["2024-05-03",[63,70,68,69,49,63,83],70,81,83],["2024-05-04",[70,68,69,49,63,83,70],52,68,70],["2024-05-05",[68,69,49,63,83,70,52],50,57,52],["2024-05-06",[69,49,63,83,70,52,50],62,44,50],["2024-05-07",[49,63,83,70,52,50,62],80,53,62],["2024-05-08",[63,83,70,52,50,62,80],99,74,80],["2024-05-09",[83,70,52,50,62,80,99],65,82,99],["2024-05-10",[70,52,50,62,80,99,65],58,67,65],["2024-05-11",[52,50,62,80,99,65,58],80,63,58],["2024-05-12",[50,62,80,99,65,58,80],117,76,80],["2024-05-13",[62,80,99,65,58,80,117],59,86,117],["2024-05-14",[80,99,65,58,80,117,59],69,70,59],["2024-05-15",[99,65,58,80,117,59,70],58,70,69],["2024-05-16",[65,58,80,117,59,70,58],50,71,58],["2024-05-17",[58,80,117,59,70,58,50],43,54,50],["2024-05-18",[80,117,59,70,58,50,43],84,51,43],["2024-05-19",[117,59,70,58,50,43,84],71,66,84],["2024-05-20",[59,70,58,50,43,84,71],98,69,71],["2024-05-21",[70,58,50,43,84,71,98],57,78,98],["2024-05-22",[58,50,43,84,71,98,57],114,63,57],["2024-05-23",[50,43,84,71,98,57,114],73,90,114],["2024-05-24",[43,84,71,98,57,114,73],64,79,73],["2024-06-04",[52,52,49,48,44,36,63],64,47,63],["2024-06-05",[52,49,48,44,36,63,64],58,46,64],["2024-06-06",[49,48,44,36,63,64,58],82,52,58],["2024-06-07",[48,44,36,63,64,58,82],50,59,82],["2024-06-08",[44,36,63,64,58,82,50],46,47,50],["2024-06-11",[64,58,82,50,46,91,71],40,64,71],["2024-06-12",[58,82,50,46,91,71,40],45,45,40],["2024-06-13",[82,50,46,91,71,40,45],59,44,45],["2024-06-14",[50,46,91,71,40,45,59],51,48,59],["2024-06-15",[46,91,71,40,45,59,51],38,45,51],["2024-06-16",[91,71,40,45,59,51,38],34,42,38],["2024-06-17",[71,40,45,59,51,38,34],32,33,34],["2024-06-18",[40,45,59,51,38,34,32],22,30,32],["2024-06-19",[45,59,51,38,34,32,22],24,28,22],["2024-06-20",[59,51,38,34,32,22,24],44,30,24],["2024-06-21",[51,38,34,32,22,24,44],41,41,44],["2024-06-22",[38,34,32,22,24,44,41],53,42,41],["2024-06-23",[34,32,22,24,44,41,53],30,46,53],["2024-06-24",[32,22,24,44,41,53,30],34,34,30],["2024-06-25",[22,24,44,41,53,30,34],55,34,34],["2024-06-26",[24,44,41,53,30,34,55],33,49,55],["2024-06-27",[44,41,53,30,34,55,33],25,34,33],["2024-06-28",[41,53,30,34,55,33,25],36,30,25],["2024-06-29",[53,30,34,55,33,25,36],34,37,36],["2024-06-30",[30,34,55,33,25,36,34],43,32,34],["2024-07-01",[34,55,33,25,36,34,42],50,42,43],["2024-07-02",[55,33,25,36,34,42,50],38,44,50],["2024-07-03",[33,25,36,34,42,50,38],36,41,38],["2024-07-04",[25,36,34,42,50,38,36],37,39,36],["2024-07-05",[36,34,42,50,38,36,37],35,37,37],["2024-07-06",[34,42,50,38,36,37,35],39,37,35],["2024-07-07",[42,50,38,36,37,35,39],36,39,39],["2024-07-08",[50,38,36,37,35,39,36],42,39,36],["2024-07-09",[38,36,37,35,39,36,42],34,41,42],["2024-07-10",[36,37,35,39,36,42,34],34,34,34],["2024-07-11",[37,35,39,36,42,34,34],43,33,34],["2024-07-12",[35,39,36,42,34,34,43],42,38,43],["2024-07-13",[39,36,42,34,34,43,42],40,42,42],["2024-07-14",[36,42,34,34,43,42,40],27,36,40],["2024-07-15",[42,34,34,43,42,40,27],31,28,27],["2024-07-16",[34,34,43,42,40,27,31],46,30,31],["2024-07-17",[34,43,42,40,27,31,46],37,34,46],["2024-07-30",[25,32,21,22,20,28,36],42,38,36],["2024-07-31",[32,21,22,20,28,36,42],18,38,42],["2024-08-01",[21,22,20,28,36,42,18],38,28,18],["2024-08-02",[22,20,28,36,42,18,38],45,37,38],["2024-08-03",[20,28,36,42,18,38,45],38,37,45],["2024-08-04",[28,36,42,18,38,45,38],24,41,38],["2024-08-05",[36,42,18,38,45,38,24],25,33,24],["2024-08-06",[42,18,38,45,38,24,25],29,28,25],["2024-08-07",[18,38,45,38,24,25,29],30,30,29],["2024-08-08",[38,45,38,24,25,29,30],26,32,30],["2024-08-09",[45,38,24,25,29,30,26],39,27,26],["2024-08-10",[38,24,25,29,30,26,39],44,36,39],["2024-08-11",[24,25,29,30,26,39,44],60,40,44],["2024-08-12",[25,29,30,26,39,44,60],61,48,60],["2024-08-13",[29,30,26,39,44,60,61],43,50,61],["2024-08-14",[30,26,39,44,60,61,43],39,42,43],["2024-08-15",[26,39,44,60,61,43,39],22,36,39],["2024-08-16",[39,44,60,61,43,39,22],10,28,22],["2024-08-17",[44,60,61,43,39,22,10],21,27,10],["2024-08-18",[60,61,43,39,22,10,21],21,29,21],["2024-08-19",[61,43,39,22,10,21,21],35,32,21],["2024-08-20",[43,39,22,10,21,21,35],43,40,35],["2024-08-21",[39,22,10,21,21,35,43],47,53,43],["2024-08-22",[22,10,21,21,35,43,47],28,55,47],["2024-08-23",[10,21,21,35,43,47,28],28,31,28],["2024-08-24",[21,21,35,43,47,28,28],18,29,28],["2024-08-25",[21,35,43,47,28,28,18],30,27,18],["2024-08-26",[35,43,47,28,28,18,30],34,31,30],["2024-08-27",[43,47,28,28,18,30,34],46,34,34],["2024-08-28",[47,28,28,18,30,34,46],52,41,46],["2024-08-29",[28,28,18,30,34,46,52],36,53,52],["2024-08-30",[28,18,30,34,46,52,36],32,43,36],["2024-08-31",[18,30,34,46,52,36,32],35,34,32],["2024-09-01",[30,34,46,52,36,32,35],55,38,35],["2024-09-02",[34,46,52,36,32,35,55],47,54,55],["2024-09-03",[46,52,36,32,35,55,47],43,44,47],["2024-09-04",[52,36,32,35,55,47,43],52,45,43],["2024-09-05",[36,32,35,55,47,43,52],46,50,52],["2024-09-06",[32,35,55,47,43,52,46],84,45,46],["2025-01-08",[198,140,197,270,229,190,178],140,183,178],["2025-01-09",[140,197,270,229,190,178,140],182,156,140],["2025-01-10",[197,270,229,190,178,140,182],211,211,182],["2025-01-11",[270,229,190,178,140,182,211],204,215,211],["2025-01-12",[229,190,178,140,182,211,204],248,206,204],["2025-01-13",[190,178,140,182,211,204,248],185,219,248],["2025-01-14",[178,140,182,211,204,248,185],187,187,185],["2025-01-15",[140,182,211,204,248,185,187],193,180,187],["2025-01-16",[182,211,204,248,185,187,193],186,202,193],["2025-01-17",[211,204,248,185,187,193,186],177,205,186],["2025-01-18",[204,248,185,187,193,186,177],135,187,177],["2025-01-19",[248,185,187,193,186,177,135],181,164,135],["2025-01-20",[185,187,193,186,177,135,181],248,207,181],["2025-01-21",[187,193,186,177,135,181,248],383,223,248],["2025-01-22",[193,186,177,135,181,248,383],244,225,383],["2025-01-23",[186,177,135,181,248,383,244],231,254,244],["2025-01-24",[177,135,181,248,383,244,231],223,242,231],["2025-01-25",[135,181,248,383,244,231,222],181,241,223],["2025-01-26",[181,248,383,244,231,222,181],227,213,181],["2025-01-27",[248,383,244,231,222,181,227],261,249,227],["2025-01-28",[383,244,231,222,181,227,261],342,245,261],["2025-01-29",[244,231,222,181,227,261,342],285,234,342],["2025-01-30",[231,222,181,227,261,342,285],132,232,285],["2025-01-31",[222,181,227,261,342,285,132],174,152,132],["2025-02-01",[181,227,261,342,285,132,174],262,135,174],["2025-02-02",[227,261,342,285,132,174,262],178,199,262],["2025-02-03",[261,342,285,132,174,262,178],188,182,178],["2025-02-04",[342,285,132,174,262,178,188],251,217,188],["2025-02-05",[285,132,174,262,178,188,251],257,212,251],["2025-02-06",[132,174,262,178,188,251,257],126,229,257],["2025-02-07",[174,262,178,188,251,257,126],134,184,126],["2025-02-08",[262,178,188,251,257,126,134],156,170,134],["2025-02-09",[178,188,251,257,126,134,156],274,208,156],["2025-02-10",[188,251,257,126,134,156,274],188,231,274],["2025-02-11",[251,257,126,134,156,274,188],113,165,188],["2025-02-12",[257,126,134,156,274,188,113],89,133,113],["2025-02-13",[126,134,156,274,188,113,89],109,126,89],["2025-02-14",[134,156,274,188,113,89,109],133,131,109],["2025-02-15",[156,274,188,113,89,109,133],188,163,133],["2025-02-16",[274,188,113,89,109,133,188],196,178,188],["2025-02-17",[188,113,89,109,133,188,196],154,166,196],["2025-02-18",[113,89,109,133,188,196,154],193,140,154],["2025-02-19",[89,109,133,188,196,154,192],193,172,193],["2025-02-20",[109,133,188,196,154,192,193],162,165,193],["2025-02-21",[133,188,196,154,192,193,162],134,158,162],["2025-02-22",[188,196,154,192,193,162,134],134,125,134],["2025-02-23",[196,154,192,193,162,134,134],95,136,134],["2025-02-24",[154,192,193,162,134,134,95],134,128,95],["2025-02-25",[192,193,162,134,134,95,134],166,152,134],["2025-02-26",[193,162,134,134,95,134,166],150,194,166],["2025-02-27",[162,134,134,95,134,166,150],190,158,150],["2025-02-28",[134,134,95,134,166,150,190],189,163,190],["2025-03-01",[134,95,134,166,150,190,189],123,163,189],["2025-03-02",[95,134,166,150,190,189,123],172,134,123],["2025-03-03",[134,166,150,190,189,123,172],104,166,172],["2025-03-04",[166,150,190,189,123,172,104],107,144,104],["2025-03-05",[150,190,189,123,172,104,107],103,141,107],["2025-03-06",[190,189,123,172,104,107,103],108,140,103],["2025-03-07",[189,123,172,104,107,103,108],156,136,108],["2025-03-08",[123,172,104,107,103,108,156],136,184,156],["2025-03-09",[172,104,107,103,108,156,136],217,153,136],["2025-03-10",[104,107,103,108,156,136,217],152,209,217],["2025-03-11",[107,103,108,156,136,217,152],121,157,152],["2025-03-12",[103,108,156,136,217,152,121],68,131,121],["2025-03-13",[108,156,136,217,152,121,68],72,106,68],["2025-03-14",[156,136,217,152,121,68,72],63,102,72],["2025-03-15",[136,217,152,121,68,72,63],72,93,63],["2025-03-16",[217,152,121,68,72,63,72],68,86,72],["2025-03-17",[152,121,68,72,63,72,68],93,91,68],["2025-03-18",[121,68,72,63,72,68,93],173,121,93],["2025-03-19",[68,72,63,72,68,93,173],95,165,173],["2025-03-20",[72,63,72,68,93,173,94],93,83,95],["2025-03-21",[63,72,68,93,173,94,93],173,108,93],["2025-03-22",[72,68,93,173,94,93,173],84,125,173],["2025-03-23",[68,93,173,94,93,173,84],101,130,84]], SAAS = [[0, 100.0, 100.0], [1, 93.9, 96.7], [2, 89.3, 93.2], [3, 87.1, 93.6], [4, 84.4, 92.5], [5, 82.2, 91.5], [6, 80.5, 92.5], [7, 78.1, 91.5], [8, 75.9, 92.0], [9, 75.2, 95.4], [10, 72.9, 94.9], [11, 71.1, 94.9], [12, 69.5, 94.3], [13, 67.4, 94.7], [14, 65.6, 94.1], [15, 64.4, 92.9], [16, 64.5, 94.1], [17, 62.3, 93.0], [18, 59.9, 92.6]], EVENTS = [[0,188,"Fitr","2016-07-07",-44],[0,256,"Adha","2016-09-13",-30],[1,176,"Fitr","2017-06-26",-69],[1,244,"Adha","2017-09-02",-22],[2,166,"Fitr","2018-06-16",8],[3,155,"Fitr","2019-06-05",-66],[3,223,"Adha","2019-08-12",-42],[4,213,"Adha","2020-08-01",-7],[5,133,"Fitr","2021-05-14",-47],[5,201,"Adha","2021-07-21",-50],[6,122,"Fitr","2022-05-03",-13],[6,190,"Adha","2022-07-10",-39],[7,111,"Fitr","2023-04-22",-44],[7,179,"Adha","2023-06-29",-49],[8,101,"Fitr","2024-04-11",57],[8,168,"Adha","2024-06-17",-31]];
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent){ const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; }
+
+/* Eid event-study line chart */
+(function(){
+  const box = document.getElementById('eidchart'); if (!box) return;
+  const W = 600, H = 260, L = 44, R = 12, T = 14, B = 34;
+  const svg = el('svg', {viewBox:`0 0 ${W} ${H}`}, box);
+  const x = t => L + (t + 21) / 42 * (W - L - R), y = v => T + (150 - v) / 110 * (H - T - B);
+  el('rect', {x:x(-1), y:T, width:x(3)-x(-1), height:H-T-B, fill:'#f59e0b', 'fill-opacity':0.18}, svg);
+  [40,60,80,100,120,140].forEach(v => { el('line',{x1:L,x2:W-R,y1:y(v),y2:y(v),stroke:'#e7dfcf'},svg); const t=el('text',{x:L-8,y:y(v)+4,'text-anchor':'end','font-size':12,fill:'#78716c'},svg); t.textContent=v+'%'; });
+  [-21,-14,-7,0,7,14,21].forEach(d => { const t=el('text',{x:x(d),y:H-12,'text-anchor':'middle','font-size':12,fill:'#78716c'},svg); t.textContent = d===0 ? 'Eid' : (d>0?'+':'')+d; });
+  el('line',{x1:L,x2:W-R,y1:y(100),y2:y(100),stroke:'#78716c','stroke-dasharray':'4 4'},svg);
+  const band = CURVE.map(p=>`${x(p[0])},${y(Math.min(150,p[3]))}`).join(' ') + ' ' + CURVE.slice().reverse().map(p=>`${x(p[0])},${y(Math.max(40,p[2]))}`).join(' ');
+  el('polygon',{points:band,fill:'#9a3412','fill-opacity':0.12},svg);
+  el('polyline',{points:CURVE.map(p=>`${x(p[0])},${y(p[1])}`).join(' '),fill:'none',stroke:'#9a3412','stroke-width':2.5,'stroke-linejoin':'round'},svg);
+  const lab = el('text',{x:x(1),y:T+14,'text-anchor':'middle','font-size':12,'font-weight':600,fill:'#92400e'},svg); lab.textContent='Eid window';
+  const dot = el('circle',{r:5,fill:'#9a3412',stroke:'#fff','stroke-width':2,opacity:0},svg);
+  const tip = document.createElement('div'); tip.className='ct'; box.appendChild(tip);
+  svg.addEventListener('pointermove', e => {
+    const r = svg.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * W;
+    const t = Math.max(-21, Math.min(21, Math.round((px - L) / (W - L - R) * 42 - 21)));
+    const p = CURVE.find(q => q[0] === t); if (!p) return;
+    dot.setAttribute('cx', x(t)); dot.setAttribute('cy', y(p[1])); dot.setAttribute('opacity', 1);
+    tip.textContent = (t===0 ? 'Eid day' : (Math.abs(t) + (Math.abs(t)===1 ? ' day ' : ' days ') + (t>0 ? 'after Eid' : 'before Eid'))) + ': ' + Math.round(p[1]) + '% of normal';
+    tip.style.left = (x(t) / W * r.width) + 'px'; tip.style.top = (y(p[1]) / H * r.height) + 'px'; tip.style.opacity = 1;
+  });
+  svg.addEventListener('pointerleave', () => { tip.style.opacity = 0; dot.setAttribute('opacity', 0); });
+})();
+
+/* Beat my model */
+(function(){
+  if (!document.getElementById('game')) return;
+  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmt = (iso, add) => { const d = new Date(iso + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + add); return d.getUTCDate() + ' ' + MON[d.getUTCMonth()]; };
+  const pool = GAME.slice(); for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+  const ROUNDS = 5; let round = 0, you = 0, mod = 0, locked = false, cur;
+  const bars = document.getElementById('gbars'), days = document.getElementById('gdays'), rng = document.getElementById('grange'), out = document.getElementById('gout'), btn = document.getElementById('gbtn'), rev = document.getElementById('greveal'), sc = document.getElementById('gscore'), key = document.getElementById('gkey');
+  const MAX = 320, h = v => Math.max(1, Math.min(v, MAX)) / MAX * 166;
+  function draw(){
+    cur = pool[round]; locked = false; key.hidden = true; rev.innerHTML = '';
+    btn.textContent = 'Lock in my guess';
+    bars.innerHTML = ''; days.innerHTML = '';
+    cur[1].forEach((v, i) => { const b = document.createElement('div'); b.style.height = h(v) + 'px'; b.innerHTML = '<span>' + v + '</span>'; bars.appendChild(b); const s = document.createElement('span'); s.textContent = i === 6 ? 'Today' : fmt(cur[0], i - 6); days.appendChild(s); });
+    const q = document.createElement('div'); q.className = 'q'; q.style.height = h(+rng.value) + 'px'; q.id = 'gq'; q.innerHTML = '<span>?</span>'; bars.appendChild(q);
+    const s = document.createElement('span'); s.textContent = 'Tomorrow'; days.appendChild(s);
+    sc.innerHTML = 'Round ' + (round + 1) + ' of ' + ROUNDS + (round ? ' &middot; your total error <b>' + you + '</b>, model <b>' + mod + '</b>' : '');
+  }
+  rng.addEventListener('input', () => { out.textContent = rng.value; const q = document.getElementById('gq'); if (q && !locked) q.style.height = h(+rng.value) + 'px'; });
+  btn.addEventListener('click', () => {
+    if (!locked) {
+      locked = true; const g = +rng.value, a = cur[2], m = cur[3], p = cur[4];
+      const eg = Math.abs(g - a), em = Math.abs(m - a), ep = Math.abs(p - a); you += eg; mod += em;
+      const q = document.getElementById('gq'); q.className = 'mk'; q.style.height = h(Math.max(a, g, m)) + 'px'; q.innerHTML = '';
+      [[a,'#1c1917'],[g,'#9a3412'],[m,'#2563eb']].forEach(([v,c]) => { const i = document.createElement('i'); i.style.background = c; i.style.bottom = (h(v) / h(Math.max(a, g, m)) * 100) + '%'; q.appendChild(i); });
+      key.hidden = false;
+      const verdict = eg < em ? 'You beat my model on this day.' : (eg === em ? 'A tie with my model.' : 'My model was closer this time.');
+      rev.innerHTML = '<table><tr><td>Actual</td><td>' + a + '</td></tr><tr><td>Your guess</td><td>' + g + ' (off by ' + eg + ')</td></tr><tr><td>My model</td><td>' + m + ' (off by ' + em + ')</td></tr><tr><td>"Tomorrow equals today"</td><td>' + p + ' (off by ' + ep + ')</td></tr></table><b>' + verdict + '</b>';
+      round++;
+      if (round >= ROUNDS) { btn.textContent = 'Play again'; sc.innerHTML = 'Final: your total error <b>' + you + '</b>, model <b>' + mod + '</b>. ' + (you < mod ? 'You won.' : (you === mod ? 'A draw.' : 'The model won.')); }
+      else { btn.textContent = 'Next day'; sc.innerHTML = 'Round ' + round + ' of ' + ROUNDS + ' &middot; your total error <b>' + you + '</b>, model <b>' + mod + '</b>'; }
+    } else {
+      if (round >= ROUNDS) { round = 0; you = 0; mod = 0; for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; } }
+      draw();
+    }
+  });
+  draw();
+})();
+
+/* Data quiz */
+(function(){
+  const Q = [
+    {q:'A hotel dataset holds 119,390 bookings. What share were cancelled?', o:['12.4%','37.1%','58.0%'], a:1, e:'37.1%. More than one booking in three never turned into a stay.', u:'https://github.com/hrishinthecoder/Existing-Portfolio-Projects/blob/main/Hotel%20Business%20Problem%20Analysis.ipynb'},
+    {q:'306 of 1,998 retail customers were "Champions" (about 15%). What share of revenue did they bring in?', o:['8.2%','23.81%','61.0%'], a:1, e:'23.81%. A small group of loyal buyers carries almost a quarter of the revenue.', u:'https://github.com/hrishinthecoder/elevvo-pathways-internship/tree/main/Task_03_RFM_Analysis'},
+    {q:'Out of 113,937 loans worth $950M, what share defaulted or were charged off?', o:['3.2%','14.93%','41.5%'], a:1, e:'14.93%. Roughly one loan in seven went bad.', u:'https://github.com/hrishinthecoder/Existing-Portfolio-Projects/blob/main/Loan%20Performance%20and%20Investor%20Return%20Analysis.pbix'},
+    {q:'A software company keeps about 70% of its customers after 12 months. How much of its revenue does it keep?', o:['About 55%','About 70%','About 95%'], a:2, e:'About 95%. The customers who stay upgrade, which almost cancels out the ones who leave.', u:'https://github.com/hrishinthecoder/Saas_Cohort_Model'},
+    {q:'When Dhaka empties for Eid, what happens to PM2.5?', o:['No real change','It falls about 36%','It rises about 20%'], a:1, e:'It falls about 36% on average, across 16 Eid holidays from 2016 to 2024.', u:'https://github.com/hrishinthecoder/dhaka-eid-pm25'}
+  ];
+  const qt = document.getElementById('qtext'); if (!qt) return;
+  const qo = document.getElementById('qopts'), qe = document.getElementById('qexp'), qs = document.getElementById('qscore'), qn = document.getElementById('qnext');
+  let i = 0, score = 0;
+  function show(){
+    const c = Q[i]; qt.textContent = (i + 1) + '. ' + c.q; qo.innerHTML = ''; qe.textContent = ''; qn.hidden = true;
+    qs.textContent = 'Score ' + score + ' of ' + i;
+    c.o.forEach((t, k) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.addEventListener('click', () => pick(k)); qo.appendChild(b); });
+  }
+  function pick(k){
+    const c = Q[i], bs = qo.querySelectorAll('button');
+    bs.forEach((b, j) => { b.disabled = true; if (j === c.a) b.classList.add('right'); else if (j === k) b.classList.add('wrong'); });
+    if (k === c.a) score++;
+    qe.innerHTML = (k === c.a ? 'Correct. ' : 'Not quite. ') + c.e + ' <a href="' + c.u + '">See the project</a>';
+    qs.textContent = 'Score ' + score + ' of ' + (i + 1);
+    qn.hidden = false; qn.textContent = i === Q.length - 1 ? 'Play again' : 'Next question';
+  }
+  qn.addEventListener('click', () => { i++; if (i >= Q.length) { i = 0; score = 0; } show(); });
+  show();
+})();
+
+/* SaaS retention slider */
+(function(){
+  const box = document.getElementById('saaschart'); if (!box) return;
+  const W = 600, H = 220, L = 40, R = 12, T = 12, B = 28;
+  const svg = el('svg', {viewBox:`0 0 ${W} ${H}`}, box);
+  const x = m => L + m / 18 * (W - L - R), y = v => T + (100 - v) / 45 * (H - T - B);
+  [60,70,80,90,100].forEach(v => { el('line',{x1:L,x2:W-R,y1:y(v),y2:y(v),stroke:'#e7dfcf'},svg); const t=el('text',{x:L-6,y:y(v)+4,'text-anchor':'end','font-size':12,fill:'#78716c'},svg); t.textContent=v+'%'; });
+  [0,6,12,18].forEach(m => { const t=el('text',{x:x(m),y:H-8,'text-anchor':'middle','font-size':12,fill:'#78716c'},svg); t.textContent='Month '+m; });
+  el('polyline',{points:SAAS.map(p=>`${x(p[0])},${y(p[2])}`).join(' '),fill:'none',stroke:'#1c1917','stroke-width':2.5},svg);
+  el('polyline',{points:SAAS.map(p=>`${x(p[0])},${y(p[1])}`).join(' '),fill:'none',stroke:'#9a3412','stroke-width':2.5},svg);
+  const t1 = el('text',{x:x(18)-4,y:y(SAAS[18][2])-8,'text-anchor':'end','font-size':12,'font-weight':600,fill:'#1c1917'},svg); t1.textContent='Revenue kept';
+  const t2 = el('text',{x:x(18)-4,y:y(SAAS[18][1])+18,'text-anchor':'end','font-size':12,'font-weight':600,fill:'#9a3412'},svg); t2.textContent='Customers still paying';
+  const vl = el('line',{y1:T,y2:H-B,stroke:'#78716c','stroke-dasharray':'3 3'},svg);
+  const d1 = el('circle',{r:5,fill:'#9a3412',stroke:'#fff','stroke-width':2},svg), d2 = el('circle',{r:5,fill:'#1c1917',stroke:'#fff','stroke-width':2},svg);
+  const rg = document.getElementById('srange');
+  function upd(){ const m = +rg.value, p = SAAS[m]; vl.setAttribute('x1',x(m)); vl.setAttribute('x2',x(m)); d1.setAttribute('cx',x(m)); d1.setAttribute('cy',y(p[1])); d2.setAttribute('cx',x(m)); d2.setAttribute('cy',y(p[2]));
+    document.getElementById('sm').textContent = m; document.getElementById('sl').textContent = p[1].toFixed(1) + '%'; document.getElementById('sn').textContent = p[2].toFixed(1) + '%'; }
+  rg.addEventListener('input', upd); upd();
+})();
+
+/* Experience timeline */
+(function(){
+  const box = document.getElementById('timeline'); if (!box) return;
+  const ROLES = [['CreateBud Inc.','2026-07','now','r-createbud'],['VibeWeave','2026-06','now','r-vibeweave'],['Elevvo Pathways','2025-08','2025-09','r-elevvo'],['Springer Capital','2025-03','2025-06','r-springer'],['CORViS','2024-12','now','r-corvis'],['TechnoColabs','2024-09','2024-11','r-technocolabs'],['Abelling','2024-09','2026-04','r-abelling']];
+  const start = new Date('2024-09-01'), end = new Date('2026-11-01'), span = end - start;
+  const pos = s => (s === 'now' ? 1 : (new Date(s + '-01') - start) / span);
+  ROLES.forEach(([n, a, b, id]) => {
+    const row = document.createElement('div'); row.className = 'tl-row';
+    const l = (pos(a) * 100), r = (b === 'now' ? 100 : (new Date(new Date(b + '-01').setMonth(new Date(b + '-01').getMonth() + 1)) - start) / span * 100);
+    row.innerHTML = '<span class="tl-name">' + n + '</span><div class="tl-track"><button type="button" class="tl-bar' + (b === 'now' ? ' now' : '') + '" style="left:' + l + '%;width:' + Math.max(1.5, r - l) + '%" aria-label="' + n + ', jump to details"></button></div>';
+    row.querySelector('button').addEventListener('click', () => { const t = document.getElementById(id); if (!t) return; t.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'center'}); t.classList.add('flash'); setTimeout(() => t.classList.remove('flash'), 1400); });
+    box.appendChild(row);
+  });
+  const ax = document.createElement('div'); ax.className = 'tl-axis';
+  ['2024-09','2025-03','2025-09','2026-03','2026-09'].forEach(m => { const s = document.createElement('span'); s.style.left = (pos(m) * 100) + '%'; const d = new Date(m + '-01'); s.textContent = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getFullYear(); ax.appendChild(s); });
+  box.appendChild(ax);
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const PM = {"y0":2016,"v":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,192,165,172,98,123,127,106,111,107,109,100,109,94,105,138,143,118,131,67,88,75,70,84,114,133,171,74,43,67,79,64,55,61,60,44,47,55,54,61,52,56,55,65,62,43,48,41,41,45,43,47,40,50,45,50,45,39,42,44,54,48,47,49,54,41,65,79,57,59,86,90,76,66,37,45,39,33,26,32,28,22,16,53,47,54,56,57,57,38,52,66,65,67,74,49,45,45,42,51,30,29,34,54,43,43,52,47,51,34,29,36,22,23,23,30,25,31,45,23,24,34,32,27,21,26,22,20,20,21,15,15,18,19,24,28,30,27,33,28,32,37,40,38,31,31,37,27,27,35,35,68,47,34,35,18,22,18,19,21,22,24,19,15,30,33,43,46,44,22,16,37,44,56,43,38,81,69,68,31,35,48,41,30,23,0,38,32,30,25,28,38,47,51,50,42,42,27,30,30,27,23,30,31,33,32,35,30,27,31,42,57,71,47,42,46,58,56,76,43,74,40,36,39,36,25,39,87,47,64,58,66,74,78,58,70,84,74,77,80,76,44,46,40,41,61,58,51,55,58,27,12,50,91,70,98,189,136,145,131,154,120,109,124,122,106,101,120,136,117,177,112,106,130,109,84,99,108,138,93,130,130,120,114,138,140,142,136,153,178,183,168,192,191,193,170,218,222,251,269,196,212,161,148,157,169],[231,210,180,129,209,0,0,0,202,178,180,137,122,141,176,173,262,286,181,206,194,210,213,216,254,218,291,179,141,127,186,194,172,235,165,124,161,124,151,153,246,177,126,172,215,186,177,186,212,270,155,93,79,0,0,0,0,0,182,185,163,99,83,52,71,118,100,69,80,50,91,85,84,122,143,170,68,107,59,101,112,122,120,56,76,78,54,51,34,45,34,46,41,35,46,60,66,62,69,68,75,87,132,143,62,35,86,53,35,43,45,33,55,45,64,72,58,63,43,59,40,58,91,58,58,40,37,44,44,81,42,59,58,47,30,41,46,37,59,56,46,48,49,47,38,37,60,71,59,21,61,36,34,42,38,43,60,59,62,50,36,13,9,36,38,25,21,41,36,43,51,47,37,30,22,10,9,8,12,13,18,14,17,34,39,29,29,33,34,27,32,35,32,26,24,29,31,26,0,14,22,17,17,19,20,34,30,35,47,44,63,47,37,46,52,38,22,37,28,37,30,24,34,28,35,51,40,63,45,25,21,29,46,38,24,25,28,22,20,23,31,23,28,18,22,25,30,43,53,35,20,18,25,55,34,44,36,58,52,42,17,17,22,29,27,0,0,64,81,81,33,19,37,46,44,71,47,46,59,22,13,14,29,46,47,22,19,74,92,86,48,25,14,10,29,57,76,99,70,90,81,82,0,0,52,64,64,43,46,60,62,55,77,70,76,79,61,51,53,28,33,48,71,122,135,121,178,147,148,145,130,254,240,144,130,138,105,115,137,122,115,87,38,15,37,94,208,204,149,152,184,120,136,152,154,146,158,181,153,164,176,183,167,121,143],[154,166,146,185,0,0,0,0,193,223,256,248,256,276,220,207,220,159,157,155,215,218,206,231,190,128,152,182,232,278,206,199,282,290,206,152,217,276,109,124,116,111,145,132,107,124,128,160,207,166,205,173,164,162,117,143,73,109,102,129,166,77,85,77,123,94,104,133,155,211,136,63,126,78,66,91,126,135,115,156,154,127,83,123,92,89,92,67,55,48,89,84,133,0,129,58,52,71,86,64,86,0,59,33,0,0,64,81,39,72,60,0,0,0,0,50,57,74,37,32,31,37,54,54,42,34,36,37,38,27,27,48,72,50,63,62,53,0,41,45,48,55,39,45,22,35,21,0,31,62,41,34,42,60,53,39,35,34,24,39,21,20,32,35,50,49,25,37,42,0,40,49,28,38,33,34,30,17,0,36,31,29,25,24,33,41,45,30,21,24,30,34,0,28,19,14,14,29,26,38,47,11,16,33,35,32,29,33,55,49,37,36,21,42,46,50,77,41,26,37,48,50,35,34,0,25,13,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,84,84,64,93,123,113,151,240,161,149,112,182,245,188,130,147,140,175,120,132,145,126,84,137,101,85,127,104,0,0,128,158,125,181,181,193,147,161,163,225,183,146,154,149,146,50,57,132,130,172,177,167,197,196,178,152,146,133,129],[133,152,156,260,183,162,179,161,164,182,198,209,168,166,182,140,194,260,256,268,210,214,245,226,163,169,136,125,130,134,173,247,225,308,229,161,220,238,264,69,173,112,135,147,171,299,261,155,241,208,138,208,161,150,128,106,81,49,58,102,91,139,241,106,117,123,112,177,177,125,81,105,120,131,90,115,81,92,94,81,154,100,194,153,185,116,87,168,82,49,50,61,57,128,80,47,72,76,37,50,105,74,87,90,44,51,62,82,122,82,73,58,70,128,81,51,64,55,55,33,114,136,0,0,0,53,70,60,56,56,49,46,59,49,53,46,40,68,64,73,79,42,38,31,37,45,41,61,55,39,39,37,41,29,20,10,13,13,19,25,31,32,29,43,35,44,40,33,51,67,49,32,26,29,20,25,16,22,26,40,40,22,20,18,34,20,18,35,30,29,29,23,31,28,34,42,67,76,74,40,25,23,18,19,20,66,35,15,11,18,37,47,28,30,21,33,25,25,11,17,32,31,33,13,6,15,22,28,20,16,30,22,40,45,33,15,24,38,25,35,28,32,36,42,36,14,16,32,22,19,29,38,41,21,23,49,39,30,34,42,56,76,57,46,46,35,27,18,34,42,37,29,40,33,36,72,51,56,68,85,47,32,42,25,74,64,69,75,50,47,54,74,79,90,102,105,42,0,0,0,58,75,83,65,73,65,109,84,83,130,84,56,25,15,44,73,82,71,84,106,124,127,168,115,100,125,117,138,105,83,65,82,107,126,127,119,132,108,78,60,84,102,150,123,148,163,197,140,131,121,123,144,161,161,136,124,139,218,182,270,218,169,162,166,173],[207,140,46,64,108,130,183,130,167,140,178,204,228,245,261,209,138,169,186,139,163,178,201,198,158,175,220,271,260,270,203,135,115,145,143,140,147,144,153,155,117,130,139,155,252,162,191,197,208,214,278,178,139,166,197,162,107,131,106,133,124,151,105,96,76,90,90,166,87,106,126,131,113,81,65,82,82,88,102,152,136,47,79,135,136,136,95,76,49,49,85,118,62,78,62,98,105,53,47,56,52,28,36,76,69,32,42,32,34,30,34,58,52,43,42,36,26,38,49,38,47,59,43,37,64,27,35,84,63,76,63,56,56,47,65,40,40,29,43,0,0,0,0,0,0,0,0,0,26,30,22,30,35,42,28,28,42,32,54,57,64,43,31,23,24,31,35,35,39,24,30,29,25,30,34,24,24,20,17,38,44,23,16,25,34,39,24,17,24,49,21,0,0,44,58,33,50,36,32,28,16,32,36,32,41,32,37,31,29,46,42,19,17,21,30,39,35,6,15,26,32,24,31,33,24,36,25,10,16,31,24,13,13,23,50,40,45,9,15,32,42,29,0,48,44,37,33,25,24,20,18,29,66,47,24,30,25,33,49,22,24,35,34,41,13,29,30,24,20,29,48,47,68,60,77,38,48,45,61,39,48,43,59,66,73,71,94,89,114,66,63,72,54,73,37,13,11,26,30,75,93,64,51,47,41,25,45,47,155,128,127,96,69,40,47,48,59,58,61,0,0,98,145,163,174,157,115,129,133,102,90,110,97,112,120,143,154,174,203,261,202,161,149,179,114,128,168,209,216,175,150,186,141,140,214,210,223,236,169,137,158,177,214,201,162],[152,140,150,185,183,185,225,182,195,262,266,194,157,180,177,252,265,244,343,315,254,0,201,237,202,221,175,201,194,188,207,207,199,181,185,160,149,112,109,119,169,216,261,223,261,269,248,187,199,155,141,138,143,164,272,221,127,114,80,91,105,125,148,108,77,92,133,76,61,103,155,145,97,162,313,158,225,222,225,313,183,138,194,127,153,144,145,155,74,76,77,92,116,132,109,150,0,0,0,0,0,89,64,53,41,48,40,57,35,34,52,60,76,165,115,53,45,67,102,120,70,104,74,57,124,73,81,46,66,64,57,54,34,41,35,32,29,21,33,18,26,24,46,44,13,30,36,49,58,40,37,65,54,38,39,49,67,63,45,60,61,21,28,19,25,24,27,35,28,46,53,49,49,46,54,46,65,41,22,24,28,46,39,33,34,40,38,33,30,44,41,24,40,25,27,23,25,35,25,50,38,17,11,6,7,19,16,11,6,5,11,16,22,28,34,26,45,37,30,33,30,37,48,44,39,33,37,53,38,31,31,28,31,25,28,50,63,53,43,36,30,39,38,32,46,40,63,56,27,23,32,66,54,21,26,17,28,30,32,41,32,19,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,58,71,104,100,101,91,91,87,80,80,58,49,33,29,49,53,70,104,79,84,103,98,91,88,70,68,88,128,120,108,104,95,98,97,117,138,127,124,104,94,100,122,117,116,113,142,155,167,198,232,134,149,156,157,153,140,109,105,131,120,72,88,34,32,58,100,133,199,173,168,163,170,132,124,124,154,183,206,213,226,234,207,211,196,173,126,167,98],[117,188,169,193,205,184,174,151,143,137,136,126,117,104,150,121,149,188,194,191,228,248,228,122,272,159,134,131,179,200,332,166,209,0,109,80,118,110,189,207,204,164,128,144,140,152,147,176,141,140,135,115,110,146,186,81,116,156,154,139,132,148,158,165,143,139,158,141,142,147,140,136,157,173,237,161,160,131,97,149,112,202,78,66,65,97,120,89,89,63,61,80,61,47,58,59,71,56,45,55,61,59,56,52,48,55,57,56,57,49,0,65,86,61,70,70,81,84,73,59,70,58,56,43,44,56,87,95,61,57,57,62,0,0,0,0,41,37,44,58,59,68,63,90,75,86,82,88,101,90,79,75,71,62,57,58,59,73,78,63,74,77,61,53,63,49,61,37,44,51,43,60,49,57,45,41,42,31,32,46,64,44,37,44,54,55,37,45,38,32,25,26,28,28,31,32,0,37,0,36,48,51,41,46,0,0,0,0,0,0,0,0,0,0,68,49,47,30,26,21,18,20,22,32,29,24,35,40,65,53,27,29,41,50,51,29,54,40,43,35,34,37,32,28,28,43,51,47,44,35,82,43,47,19,29,35,38,37,46,80,88,42,24,41,46,40,49,51,66,78,114,92,70,77,51,38,35,30,50,109,55,41,26,22,35,52,80,56,70,80,79,63,74,55,50,81,35,51,72,88,97,92,86,92,80,72,80,112,106,89,107,88,46,49,71,108,182,135,114,98,119,144,113,109,100,151,142,139,126,111,93,100,129,136,116,106,131,145,142,125,137,150,140,103,136,176,234,313,255,247,211,250,224,210,218,227,173,169,348,237,244,198,229,218,233],[181,196,214,175,228,225,223,288,240,184,222,258,378,241,181,185,190,211,215,232,256,296,304,218,263,340,238,170,204,256,247,138,115,152,180,209,226,220,136,231,161,265,143,81,108,155,230,286,271,177,181,128,92,86,121,105,134,161,146,171,218,208,219,201,138,156,110,137,139,152,122,119,155,114,132,164,103,93,62,70,88,63,127,107,91,70,135,85,85,66,55,76,88,69,65,89,111,166,134,203,221,165,145,124,182,171,92,100,86,73,65,57,55,44,55,0,84,51,81,66,51,72,66,60,59,68,67,80,104,77,62,116,86,47,34,72,0,60,73,58,54,62,50,68,64,46,71,86,97,102,99,73,71,68,73,77,86,88,87,66,62,64,76,76,59,51,50,38,52,49,59,52,44,41,30,30,26,25,24,26,18,22,27,35,25,21,27,27,27,45,35,28,25,40,37,29,37,34,33,31,30,30,34,37,38,30,25,38,32,35,43,44,34,21,38,49,41,45,50,46,57,85,70,59,54,70,79,87,48,27,35,48,46,37,37,51,41,42,62,78,97,113,131,87,91,55,48,52,39,27,28,53,70,53,50,31,21,40,53,54,41,18,27,32,28,41,37,40,65,71,68,44,32,32,34,27,29,34,44,61,53,76,106,131,111,94,115,129,103,137,124,91,71,73,77,77,29,59,73,83,90,88,109,112,94,92,101,91,106,99,98,109,128,134,103,0,125,123,97,52,17,41,76,85,120,178,189,202,162,141,81,133,118,81,113,112,101,104,131,102,56,50,121,192,222,186,234,245,225,186,178,173,185,176,164,194,206,192,204,215,220,168,185,148,191],[201,205,170,215,180,198,161,216,216,212,207,181,156,156,169,212,208,204,200,232,244,235,281,211,300,221,197,161,191,304,216,206,132,155,219,206,155,144,124,131,176,180,193,205,252,228,155,162,294,238,137,92,76,83,95,69,82,127,234,208,120,147,164,111,106,139,117,142,145,150,171,166,88,87,136,114,99,175,139,120,73,119,107,72,89,50,111,100,114,63,46,67,69,69,66,73,76,77,90,125,143,89,95,118,127,124,69,72,65,59,52,51,64,65,72,82,68,62,71,68,68,48,63,86,68,52,50,68,80,98,64,59,80,114,58,72,56,48,45,85,74,93,58,116,70,58,16,9,31,52,52,50,48,43,38,62,64,59,82,48,49,68,69,40,46,58,51,38,34,32,22,24,44,40,53,31,34,55,32,25,36,34,42,50,38,36,37,35,39,35,41,34,34,43,42,40,27,31,46,35,25,23,20,15,16,25,32,21,22,20,28,38,42,18,38,45,38,25,25,29,30,26,39,44,60,61,43,39,23,10,21,21,35,47,47,27,28,17,30,34,47,53,37,32,35,55,47,42,52,46,83,34,27,32,48,44,14,9,19,48,58,67,68,68,37,41,96,27,24,33,45,31,41,79,69,52,36,42,54,46,63,53,70,70,42,80,104,105,109,180,123,88,94,81,94,74,46,17,38,60,86,80,113,108,61,99,93,94,85,70,48,76,54,36,58,67,74,87,119,141,195,164,162,126,141,154,158,143,189,206,161,153,105,86,70,108,101,113,197,240,175,164,180,238,174,181,167,186,259,200,237,216,178,302,226,266,235,203,178,188,147,129,173,184,188]],"eid":[[0,187],[0,188],[0,189],[0,190],[0,191],[0,255],[0,256],[0,257],[0,258],[0,259],[1,175],[1,176],[1,177],[1,178],[1,179],[1,243],[1,244],[1,245],[1,246],[1,247],[2,165],[2,166],[2,167],[2,168],[2,169],[3,154],[3,155],[3,156],[3,157],[3,158],[3,222],[3,223],[3,224],[3,225],[3,226],[4,212],[4,213],[4,214],[4,215],[4,216],[5,132],[5,133],[5,134],[5,135],[5,136],[5,200],[5,201],[5,202],[5,203],[5,204],[6,121],[6,122],[6,123],[6,124],[6,125],[6,189],[6,190],[6,191],[6,192],[6,193],[7,110],[7,111],[7,112],[7,113],[7,114],[7,178],[7,179],[7,180],[7,181],[7,182],[8,100],[8,101],[8,102],[8,103],[8,104],[8,167],[8,168],[8,169],[8,170],[8,171]]};
+(function(){
+  const stage = document.getElementById('stage');
+  const tip = document.getElementById('tip');
+  function fallback(){
+    stage.insertAdjacentHTML('beforeend','<img class="fallback" src="https://raw.githubusercontent.com/hrishinthecoder/dhaka-eid-pm25/main/figures/Figure1.png" alt="">');
+  }
+  if (!window.THREE) { fallback(); return; }
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({antialias:true, alpha:true}); } catch(e){ fallback(); return; }
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  stage.insertBefore(renderer.domElement, stage.firstChild);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 400);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.62));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.62); sun.position.set(-20, 40, 30); scene.add(sun);
+
+  const DAYS = 365, YEARS = PM.v.length, DX = 0.16, DZ = 2.4, H = 0.04;
+  const W = DAYS*DX, D = YEARS*DZ;
+  const eid = new Set(PM.eid.map(p => p[0]*1000 + p[1]));
+  const cells = [];
+  for (let y=0; y<YEARS; y++) for (let d=0; d<DAYS; d++) { const v = PM.v[y][d]; if (v>0) cells.push([y,d,v]); }
+
+  const geo = new THREE.BoxGeometry(DX*0.82, 1, DZ*0.62);
+  geo.translate(0, 0.5, 0);
+  const mat = new THREE.MeshLambertMaterial({color:0xffffff});
+  const mesh = new THREE.InstancedMesh(geo, mat, cells.length);
+  const m = new THREE.Matrix4(), c = new THREE.Color();
+  const low = new THREE.Color(0xd6cbb5), high = new THREE.Color(0x292524), rust = new THREE.Color(0x9a3412);
+  const faded = new THREE.Color(0xe7dfcf);
+  function isWinter(y,d){ const mo = new Date(Date.UTC(PM.y0+y,0,1+d)).getUTCMonth(); return mo === 11 || mo <= 1; }
+  function applyMode(mode){
+    cells.forEach(([y,d,v], i) => {
+      const isE = eid.has(y*1000+d), on = mode === 'all' || (mode === 'eid' ? isE : isWinter(y,d));
+      const h = Math.max(0.05, Math.min(v, 340) * H) * (on ? 1 : 0.18);
+      m.makeScale(1, h, 1); m.setPosition(d*DX - W/2, 0, y*DZ - D/2 + DZ/2);
+      mesh.setMatrixAt(i, m);
+      if (!on) c.copy(faded); else if (isE) c.copy(rust); else c.copy(low).lerp(high, Math.min(1, Math.pow(v/260, 0.8)));
+      mesh.setColorAt(i, c);
+    });
+    mesh.instanceMatrix.needsUpdate = true; if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+  }
+  applyMode('all');
+  scene.add(mesh);
+
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(W+2, D+1.2), new THREE.MeshBasicMaterial({color:0xe9e0cc}));
+  floor.rotation.x = -Math.PI/2; floor.position.y = -0.01; scene.add(floor);
+
+  function label(text, x, z){
+    const cv = document.createElement('canvas'); cv.width = 128; cv.height = 48;
+    const g = cv.getContext('2d'); g.fillStyle = '#78716c'; g.font = '600 30px \"Schibsted Grotesk\", Arial, sans-serif'; g.textBaseline = 'middle'; g.fillText(text, 4, 24);
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv), transparent:true, depthWrite:false}));
+    s.scale.set(4.2, 1.6, 1); s.position.set(x, 0.6, z); scene.add(s);
+  }
+  for (let y=0; y<YEARS; y++) label(String(PM.y0+y), -W/2 - 2.6, y*DZ - D/2 + DZ/2);
+
+  const target = new THREE.Vector3(0, 0.8, 2);
+  let theta = -0.32, phi = 0.78, radius = 100, userMoved = false;
+  function place(){
+    camera.position.set(target.x + radius*Math.sin(phi)*Math.sin(theta), target.y + radius*Math.cos(phi), target.z + radius*Math.sin(phi)*Math.cos(theta));
+    camera.lookAt(target);
+  }
+  function resize(){
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w/h;
+    const hf = 2*Math.atan(Math.tan(camera.fov*Math.PI/360)*camera.aspect);
+    radius = (W/2 + 5) / Math.tan(hf/2) * 1.12;
+    camera.updateProjectionMatrix(); place(); draw();
+  }
+  function draw(){ renderer.render(scene, camera); }
+
+  let drag = null;
+  const info = document.getElementById('einfo');
+  const EVT = (typeof EVENTS !== 'undefined') ? EVENTS : [];
+  function pickAt(e){
+    const r = stage.getBoundingClientRect();
+    ptr.set(((e.clientX - r.left)/r.width)*2 - 1, -((e.clientY - r.top)/r.height)*2 + 1);
+    ray.setFromCamera(ptr, camera);
+    const hit = ray.intersectObject(mesh)[0];
+    return (hit && hit.instanceId !== undefined) ? cells[hit.instanceId] : null;
+  }
+  stage.addEventListener('pointerdown', e => { drag = {x:e.clientX, y:e.clientY, t:theta, p:phi, moved:false}; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointerup', e => {
+    const d0 = drag; drag = null;
+    if (!d0 || Math.abs(e.clientX - d0.x) + Math.abs(e.clientY - d0.y) > 5) return;
+    const cell = pickAt(e); if (!cell) { info.style.display = 'none'; return; }
+    const [y,d] = cell;
+    const ev = EVT.find(q => q[0] === y && d >= q[1] - 1 && d <= q[1] + 3);
+    if (!ev) { info.style.display = 'none'; return; }
+    const pct = ev[4], dt = new Date(ev[3] + 'T00:00:00Z');
+    info.innerHTML = '<b>Eid al-' + ev[2] + ', ' + dt.getUTCDate() + ' ' + MONTHS[dt.getUTCMonth()] + ' ' + dt.getUTCFullYear() + ':</b> PM2.5 was ' + Math.abs(pct) + '% ' + (pct < 0 ? 'lower' : 'higher') + ' than in the weeks around it.' + (pct > 0 ? ' This was one of only two Eids without a drop.' : '');
+    info.style.display = 'block';
+  });
+  stage.addEventListener('pointercancel', () => drag = null);
+
+  const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function dateOf(y, d){ const dt = new Date(Date.UTC(PM.y0+y, 0, 1 + d)); return dt.getUTCDate() + ' ' + MONTHS[dt.getUTCMonth()] + ' ' + dt.getUTCFullYear(); }
+  stage.addEventListener('pointermove', e => {
+    const r = stage.getBoundingClientRect();
+    if (drag) {
+      if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) > 5) userMoved = true;
+      theta = drag.t - (e.clientX - drag.x) * 0.006;
+      phi = Math.max(0.35, Math.min(1.35, drag.p - (e.clientY - drag.y) * 0.004));
+      place(); draw(); tip.style.opacity = 0; return;
+    }
+    ptr.set(((e.clientX - r.left)/r.width)*2 - 1, -((e.clientY - r.top)/r.height)*2 + 1);
+    ray.setFromCamera(ptr, camera);
+    const hit = ray.intersectObject(mesh)[0];
+    if (hit && hit.instanceId !== undefined) {
+      const [y,d,v] = cells[hit.instanceId];
+      tip.textContent = dateOf(y,d) + ': ' + v + ' µg/m³' + (eid.has(y*1000+d) ? ', Eid' : '');
+      tip.style.left = (e.clientX - r.left) + 'px'; tip.style.top = (e.clientY - r.top) + 'px'; tip.style.opacity = 1;
+    } else tip.style.opacity = 0;
+  });
+  stage.addEventListener('pointerleave', () => tip.style.opacity = 0);
+
+  let visible = true, t0 = performance.now();
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(stage);
+  function loop(now){
+    if (visible && !userMoved && !reduce) { theta = -0.32 + Math.sin((now - t0)/9000) * 0.22; place(); draw(); }
+    requestAnimationFrame(loop);
+  }
+  document.querySelectorAll('.modes .chip').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.modes .chip').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    const mode = b.dataset.mode; applyMode(mode);
+    phi = mode === 'eid' ? 0.62 : 0.78; userMoved = true; theta = -0.32;
+    info.style.display = 'none'; place(); draw();
+  }));
+  window.addEventListener('resize', resize);
+  resize();
+  if (!reduce) requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
