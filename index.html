@@ -53,7 +53,7 @@ h1{font:700 clamp(44px,5.6vw,72px)/1.02 var(--serif);margin:14px 0 20px;letter-s
 .facts{list-style:none;padding:0;margin:0 0 28px;color:var(--ink-2)}
 .facts li{padding-left:18px;position:relative;margin:4px 0}
 .facts li::before{content:"";position:absolute;left:0;top:.68em;width:7px;height:7px;background:var(--rust)}
-.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
 .btn{display:inline-block;padding:11px 18px;border:1px solid var(--ink);border-radius:3px;font:600 16px var(--sans);color:var(--ink);text-decoration:none}
 .btn.primary{background:var(--ink);color:var(--paper)}
 .btn:hover{border-color:var(--rust);color:var(--rust)}
@@ -212,6 +212,21 @@ h3.part{font:700 26px var(--serif);margin:48px 0 18px}
 @media (max-width:600px){.tl-axis{left:108px}}
 .tl-axis span{position:absolute;transform:translateX(-50%);font-size:13px;color:var(--muted)}
 .role.flash{background:#fde7dc;transition:background .6s}
+.cvmenu{position:relative;display:inline-block;vertical-align:top}
+.cvbtn{cursor:pointer;background:transparent}
+.cvbtn::after{content:"";display:inline-block;margin-left:8px;border:5px solid transparent;border-top-color:currentColor;vertical-align:-2px}
+.navbtn{border:0;padding:0;font:16px var(--sans);color:var(--ink-2)}
+.navbtn:hover{color:var(--rust)}
+.cvmenu.navcv{margin-left:22px}
+@media (max-width:760px){.cvmenu.navcv{margin-left:14px}.navbtn{font-size:15px}}
+.cvlist{display:none}
+.cvmenu.open .cvlist{display:block}
+.cvmenu.open .cvlist,.cvlist{position:absolute;z-index:20;top:calc(100% + 6px);left:0;min-width:250px;background:#fff;border:1px solid var(--ink);border-radius:3px;box-shadow:0 8px 24px rgba(28,25,23,.12);padding:4px;white-space:normal}
+.cvmenu.navcv .cvlist{left:auto;right:0}
+.cvlist a{display:block;padding:10px 12px;border-radius:2px;text-decoration:none;color:var(--ink)}
+.cvlist a:hover,.cvlist a:focus-visible{background:var(--paper)}
+.cvlist b{display:block;font-weight:600}
+.cvlist span{font-size:14px;color:var(--muted)}
 footer{border-top:1px solid var(--line);padding:24px 0 40px;font-size:15px;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 footer a{color:var(--muted)}
@@ -227,7 +242,7 @@ footer a{color:var(--muted)}
       <a href="#experience" class="hide-sm">Experience</a>
       <a href="#certifications" class="hide-sm">Certifications</a>
       <a href="#contact" class="hide-sm">Contact</a>
-      <a href="Hrishin_Debnath_CV_Internship.pdf">CV</a>
+      <div class="cvmenu navcv"><button type="button" class="cvbtn navbtn" aria-expanded="false" aria-haspopup="true">CV</button><div class="cvlist" role="menu"><a role="menuitem" href="Hrishin_Debnath_CV_Internship.pdf" download><b>CV for internships</b><span>Data analyst roles, 1 page</span></a><a role="menuitem" href="Hrishin_Debnath_CV_Research.pdf" download><b>CV for research</b><span>Professors and mentors, 2 pages</span></a></div></div>
     </nav>
   </div>
 </header>
@@ -247,7 +262,7 @@ footer a{color:var(--muted)}
       <div class="btns">
         <a class="btn primary" href="#research">Research</a>
         <a class="btn primary" href="#data">Data analysis</a>
-        <a class="btn" href="Hrishin_Debnath_CV_Internship.pdf" download>Download CV</a>
+        <div class="cvmenu cv-hero"><button type="button" class="btn cvbtn" aria-expanded="false" aria-haspopup="true">Download CV</button><div class="cvlist" role="menu"><a role="menuitem" href="Hrishin_Debnath_CV_Internship.pdf" download><b>CV for internships</b><span>Data analyst roles, 1 page</span></a><a role="menuitem" href="Hrishin_Debnath_CV_Research.pdf" download><b>CV for research</b><span>Professors and mentors, 2 pages</span></a></div></div>
       </div>
     </div>
     <figure class="scene">
@@ -604,6 +619,18 @@ function el(tag, attrs, parent){ const n = document.createElementNS(NS, tag); fo
     document.getElementById('sm').textContent = m; document.getElementById('sl').textContent = p[1].toFixed(1) + '%'; document.getElementById('sn').textContent = p[2].toFixed(1) + '%'; }
   rg.addEventListener('input', upd); upd();
 })();
+
+/* CV menus: open on click, close on outside click, Escape, or after choosing */
+document.querySelectorAll('.cvmenu').forEach(m => {
+  const btn = m.querySelector('.cvbtn');
+  btn.addEventListener('click', e => { e.stopPropagation(); const open = !m.classList.contains('open');
+    document.querySelectorAll('.cvmenu.open').forEach(x => { x.classList.remove('open'); x.querySelector('.cvbtn').setAttribute('aria-expanded','false'); });
+    if (open) { m.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
+  m.querySelectorAll('.cvlist a').forEach(a => a.addEventListener('click', () => setTimeout(() => { m.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }, 50)));
+});
+function closeCv(){ document.querySelectorAll('.cvmenu.open').forEach(x => { x.classList.remove('open'); x.querySelector('.cvbtn').setAttribute('aria-expanded','false'); }); }
+document.addEventListener('click', e => { if (!e.target.closest('.cvmenu')) closeCv(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCv(); });
 
 /* Experience timeline */
 (function(){
