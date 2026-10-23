@@ -245,6 +245,7 @@ footer a{color:var(--muted)}
     <a class="mark" href="#">Hrishin Debnath</a>
     <nav aria-label="Main">
       <a href="#research">Research</a>
+      <a href="#build" class="hide-sm">Building</a>
       <a href="#data" class="hide-xs">Data analysis</a>
       <a href="#experience" class="hide-sm">Experience</a>
       <a href="#certifications" class="hide-sm">Certifications</a>
@@ -265,6 +266,7 @@ footer a{color:var(--muted)}
           <li>Sole author of two air-quality papers, both under review</li>
           <li>24 data analysis projects, each with its code</li>
           <li>Research intern at CreateBud Inc.</li>
+          <li>Built Desk Watch, an open-source study app, and leading tech on a NASA Space Apps 2026 team</li>
         </ul>
         <div class="btns">
           <a class="btn primary" href="#research">Research</a>
@@ -350,6 +352,38 @@ footer a{color:var(--muted)}
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="wrap">
+    <span class="label">Building</span>
+    <h2 class="big">Things I build</h2>
+    <p class="sub">Tools I wanted and couldn&#x27;t find, and a team project for NASA. Both are open source.</p>
+    <div class="papers">
+      <article class="paper">
+        <p class="status">Open source beta, Windows, MIT licence</p>
+        <h3>Desk Watch: a study app that notices my phone</h3>
+        <p>I kept picking up my phone while studying, so I built an app that notices. It watches the webcam, entirely on the computer, and rings an alarm when you pick up a phone, leave the desk, look away or fall asleep. It also blocks distracting sites and apps, runs Pomodoro sessions, plans tasks, and works in English and Bangla. Nothing is recorded or uploaded.</p>
+        <div class="nums">
+          <div><b>4</b><span>kinds of distraction caught: phone, away, looking away, asleep</span></div>
+          <div><b>267</b><span>unit tests</span></div>
+        </div>
+        <p class="small">How it works: face and hand landmarks (MediaPipe) and a phone detector I trained on my own clips turn each frame into a few signals. Time rules turn signals into alarms, so a blink or a quick glance never rings: eyes closed for 6 seconds or head down for 15 seconds counts as asleep.</p>
+        <p class="links">Built with Claude Code: I wrote about 60% of the code, set the requirements, made the design decisions, recorded the training clips and tested each stage. Electron, TypeScript, MediaPipe. <a href="https://github.com/hrishinthecoder/desk-watch">Code</a> &middot; <a href="https://github.com/hrishinthecoder/desk-watch/releases">Download the beta</a></p>
+      </article>
+      <article class="paper">
+        <p class="status">In progress, NASA Space Apps Challenge 2026</p>
+        <h3>Baseline: is this astronaut&#x27;s reading normal for them?</h3>
+        <p>On a long mission, the useful question is not whether a health reading is normal for people in general, but whether it is normal for this astronaut. Baseline compares each day&#x27;s readings (heart rate, HRV, blood oxygen, temperature, sleep, reaction time, mood) with the same astronaut&#x27;s own past days. The prototype runs on simulated data.</p>
+        <div class="nums">
+          <div><b>30</b><span>past days form each person&#x27;s baseline</span></div>
+          <div><b>0.64</b><span>false flags per clean 30-day record, in a 50-record test</span></div>
+        </div>
+        <p class="small">How it works: a reading 2 standard deviations from the person&#x27;s own baseline becomes a watch item; 3 SD, or 2 SD two days running, becomes a flag. No flag fires before day 15. A Python rule engine and a browser version are checked against each other by tests, and each flag gets a card for the NASA research behind it.</p>
+        <p class="links">Technical lead, Team Obsidian Prime. Python, JavaScript. <a href="https://github.com/obsidianprimeofficial-alt/baseline">Code</a></p>
+      </article>
     </div>
   </div>
 </section>
